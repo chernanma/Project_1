@@ -33,22 +33,12 @@ const COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover
  const COVID_STATS_ENDPOINTS = {
 
      /**
-      *     request the list for all the regions - country
-      * 
-      *     WORKING EXAMPLE - https://covid-api.com/api/regions
-      */ 
-     regions: "https://covid-api.com/api/regions",
-
-
-
-     /**
       *     requests the list of all the provinces/state in the region/country {ISO CODE}
       * 
       * 
       *     WORKING EXAMPLE - https://covid-api.com/api/provinces/USA 
       */
      provinces: "https://covid-api.com/api/provinces/",
-
 
      /**
       *     reports all the cases
@@ -77,7 +67,6 @@ const COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover
       *    WORKING EXMAPLE - https://covid-api.com/api/reports?date=2020-04-16&q=US%20Alabama&iso=USA&region_name=US&region_province=Alabama&city_name=Autauga    
       */
      reports: "https://covid-api.com/api/reports",
-
 
      /**
       *     total cases and deaths from all the regions available
