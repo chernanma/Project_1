@@ -80,5 +80,35 @@ const COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover
       *     WORKING EXAMPLE  -  https://covid-api.com/api/reports/total?date=2020-09-25
       */
      totalCases: "https://covid-api.com/api/reports/total"
-
+   
  };
+
+/** 
+ * 
+ *              GOOGLE MAPS API
+ *  
+ *         Generate maps for specifict test site near by user's location
+ * 
+ * 
+ * 
+ */ 
+
+
+//website -https://developers.google.com/maps/documentation/embed
+// TO GET MAP FOR A SPECIFIC TEST SITE  
+ const GOOGLEAPIKEY = "AIzaSyA7mCsPnnmyqrG79LF96VdWSdXidtf8D0c";
+// URL for an Maps Embed API request is as follows:
+ const GOOGLE_MAPS_ENDPOINT = "https://www.google.com/maps/embed/v1/place?key="
+
+ // Example : https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Eiffel+Tower,Paris+France
+
+ 
+
+// https://developers.google.com/maps/documentation/urls
+// TO GET MAP FOR MULIPLES TEST SITES -- ****NO APIKEY NEEDED****  
+const GOOGLEAPIKEY = "AIzaSyA7mCsPnnmyqrG79LF96VdWSdXidtf8D0c";
+// URL for an Maps Embed API request is as follows:
+ const GOOGLE_MAPS_ENDPOINT = "https://www.google.com/maps/embed/v1/place?key="
+
+ // Example : https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393,+123+Main+St,MD,20874
+ 
