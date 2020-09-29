@@ -1,6 +1,6 @@
 /** 
  * 
- *              COVID-19 LOCATION APIKEY AND ENDPOINT
+ *              COVID-19 TESTING SITES LOCATION 
  * 
  *         Finds the list of sites where testing is available
  * 
@@ -29,7 +29,7 @@ const COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover
  
  // APIKEY NOT NEEDED
 
- // Re
+ // API ENDPOINTS
  const COVID_STATS_ENDPOINTS = {
 
      /**
