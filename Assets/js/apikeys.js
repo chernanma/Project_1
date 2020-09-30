@@ -9,13 +9,11 @@
  */ 
 
 // APIKEY 
-const COVID_LOCATION_APIKEY = "lZLEGOEVL9DV9PZrgak4xPaYgxI8C3gtBlB6hWpY0Js";
+export const COVID_LOCATION_APIKEY = "lZLEGOEVL9DV9PZrgak4xPaYgxI8C3gtBlB6hWpY0Js";
 
 // API EndPoint
 // example - https://discover.search.hereapi.com/v1/discover?q=Covid&at=30.22,-92.02&limit=10&apikey={{APIKEY}}
-const COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover";
-
-
+export const COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover";
 
 /** 
  * 
@@ -30,7 +28,7 @@ const COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover
  // APIKEY NOT NEEDED
 
  // API ENDPOINTS
- const COVID_STATS_ENDPOINTS = {
+ export const COVID_STATS_ENDPOINTS = {
 
      /**
       *     requests the list of all the provinces/state in the region/country {ISO CODE}
