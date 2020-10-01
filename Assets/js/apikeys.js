@@ -1,29 +1,22 @@
 /** 
  * 
- *              COVID-19 TESTING SITES LOCATION 
- * 
- *         Finds the list of sites where testing is available
- * 
+ *  COVID-19 TESTING SITES LOCATION 
+ *  Finds the list of sites where testing is available
  *  website - https://developer.here.com/blog/finding-covid-19-testing-sites
  * 
+ *  API EndPoint
+ *  example - https://discover.search.hereapi.com/v1/discover?q=Covid&at=30.22,-92.02&limit=10&apikey={{APIKEY}}
  */ 
 
-// APIKEY 
  const COVID_LOCATION_APIKEY = "lZLEGOEVL9DV9PZrgak4xPaYgxI8C3gtBlB6hWpY0Js";
-
-// API EndPoint
-// example - https://discover.search.hereapi.com/v1/discover?q=Covid&at=30.22,-92.02&limit=10&apikey={{APIKEY}}
  const COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover";
 
 /** 
  *  COVID-19 INFORMATION AND STATS
- *  
  *  Information about active cases, deaths etc for different regions
  *  website - https://covid-api.com/api/
  */ 
- 
- // APIKEY NOT NEEDED
- // API ENDPOINTS
+
  const COVID_STATS_ENDPOINTS = {
       /** 
       *    WORKING EXMAPLE - https://covid-api.com/api/reports?date=2020-04-16&q=US%20Alabama&iso=USA&region_name=US&region_province=Ala    ama&city_name=Autauga    
