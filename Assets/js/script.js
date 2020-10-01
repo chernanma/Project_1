@@ -17,7 +17,6 @@ function callLocationAPI(){
     var Lat = '-92.02';
     var queryWords ='Covid';
     var queryUrlLocation = COVID_LOCATION_ENDPOINT+'?q='+queryWords+'&at='+Lon+','+Lat+'&limit=10&apikey='+apiKeyLocation;
-    // example - https://discover.search.hereapi.com/v1/discover?q=Covid&at=30.22,-92.02&limit=10&apikey={{APIKEY}}
 
     $.ajax({
         url: queryUrlLocation,
