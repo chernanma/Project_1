@@ -18,10 +18,16 @@
  */ 
 
  const COVID_STATS_ENDPOINTS = {
+
+
+    /**
+     *  endpoint for local region
+     */
+    provinces: "https://covid-api.com/api/provinces/USA",
       /** 
       *    WORKING EXMAPLE - https://covid-api.com/api/reports?date=2020-04-16&q=US%20Alabama&iso=USA&region_name=US&region_province=Ala    ama&city_name=Autauga    
       */
-     reports: "https://covid-api.com/api/reports?city_name=",
+     reports: "https://covid-api.com/api/reports?region_province=Alabama",
 
      /**
       *     total cases and deaths from all the regions available
