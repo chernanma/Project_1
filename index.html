@@ -15,7 +15,7 @@
 
     .scroller {
         width: auto;
-        height: 600px;
+        height: 550px;
         overflow-y:scroll;
         scrollbar-color: rebeccapurple green;
         scrollbar-width: thin;
@@ -41,15 +41,20 @@
                     <input id="search" type="search" required>
                     <label class="label-icon" for="search"><i class="material-icons"></i>Enter City or State Name</label>
                     <i class="material-icons">close</i>
-                </div>           
-                <div class="card-panel blue-grey darken-1 " >    
-                    <h5><span class="card-content card-title white-text">Locations</span></h5>
-                    <div class='scroller'>
+                </div>          
+                
+                  <nav class='blue-grey darken-1 z-depth-5' >
+                    <div class="nav-wrapper blue-grey darken-1">
+                      <p class='flow-text blue-grey darken-1 center'>Locations</p>
+                      
+                    </div>
+                  </nav>  
+                    <div class='blue-grey darken-1 z-depth-5 scroller'>
                         <ul  class="collapsible table-of-contents " id="LiLocations" data-collapsible="accordion">
     
                         </ul> 
                     </div>
-                </div>
+                
                 
             </div>
         </div>
