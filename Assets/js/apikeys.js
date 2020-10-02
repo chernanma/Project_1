@@ -1,6 +1,6 @@
 /** 
  * 
- *  COVID-19 TESTING SITES LOCATION 
+ *  COVID-19 TESTING SITES LOCATION,
  *  Finds the list of sites where testing is available
  *  website - https://developer.here.com/blog/finding-covid-19-testing-sites
  * 

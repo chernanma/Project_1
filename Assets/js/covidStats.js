@@ -42,7 +42,7 @@ function states() {
 }
 
 /**
- * returns the province data for USA region
+ * returns the province data for USA regions
  */
 function provinces() {
     // query url
