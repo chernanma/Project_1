@@ -5,10 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>Covid-19 Test Site Finder and Stats Info</title>
   <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <!--Let browser know website is optimized for mobile-->
+<style>
+
+    .scroller {
+        width: auto;
+        height: 600px;
+        overflow-y:scroll;
+        scrollbar-color: rebeccapurple green;
+        scrollbar-width: thin;
+      }
+
+</style>
 </head>
 <body>
   <!-- header -->
@@ -23,24 +36,23 @@
 <div class='row'>
     <div class='col s3'>
         <div class="row">
-            <div class="input-field">
-              <input id="search" type="search" required>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
+            <div class="col s12">
+                <div class="input-field">
+                    <input id="search" type="search" required>
+                    <label class="label-icon" for="search"><i class="material-icons"></i>Enter City or State Name</label>
+                    <i class="material-icons">close</i>
+                </div>           
+                <div class="card-panel blue-grey darken-1 " >    
+                    <h5><span class="card-content card-title white-text">Locations</span></h5>
+                    <div class='scroller'>
+                        <ul  class="collapsible table-of-contents " id="LiLocations" data-collapsible="accordion">
+    
+                        </ul> 
+                    </div>
+                </div>
+                
             </div>
-          </div>
-          <div class="col s12">
-            <div class="card large blue-grey darken-1">
-              <div class="card-content white-text">
-                <span class="card-title">Display Info</span>
-                <p></p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
-              </div>
-            </div>
-          </div>
+        </div>
     </div>
     <div class='col s9'>
         <div >
@@ -83,5 +95,6 @@
           4-columns-wide on medium screens,
           12-columns-wide on small screens  -->
   </div>
+  <script src="./Assets/js/script.js"></script>
 </body>
 </html>
