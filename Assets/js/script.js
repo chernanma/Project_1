@@ -3,8 +3,8 @@
 /***  Call to Location API  ***/
 
 //Import API Key and End Point Url from APIKeys js file
-//  import {COVID_LOCATION_APIKEY} from './apikeysapikeys.js' 
-//  import {COVID_LOCATION_ENDPOINT} from './apikeysapikeys.js'
+//  import {COVID_LOCATION_APIKEY} from './apikeys.js' 
+//  import {COVID_LOCATION_ENDPOINT} from './apikeys.js' 
 
 var COVID_LOCATION_APIKEY = "lZLEGOEVL9DV9PZrgak4xPaYgxI8C3gtBlB6hWpY0Js";
 var COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover";
@@ -12,13 +12,14 @@ var COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover";
 //https://discover.search.hereapi.com/v1/discover?q=Covid+Rockville&at=39.08,-77.15&limit=10&apikey=lZLEGOEVL9DV9PZrgak4xPaYgxI8C3gtBlB6hWpY0Js
 
 // Function to call Locationn API 
-function callLocationAPI(){
+function callLocationAPI(cityName,Long,Lati){
 
     var apiKeyLocation = COVID_LOCATION_APIKEY;
-    var Lon = '30.22';
-    var Lat = '-92.02';
-    var queryWords ='Covid+Washington';
-    var queryUrlLocation = COVID_LOCATION_ENDPOINT+'?q='+queryWords+'&at='+Lon+','+Lat+'&limit=10&apikey='+apiKeyLocation;
+    // var Lon = Long;
+    // var Lat = Lati;
+    var queryWords ='Covid'+'+'+cityName;
+    console.log(queryWords);
+    var queryUrlLocation = COVID_LOCATION_ENDPOINT+'?q='+queryWords+'&at='+Long+','+Lati+'&limit=10&apikey='+apiKeyLocation;
     // making request to Locations API
     $.ajax({
         url: queryUrlLocation,
@@ -63,4 +64,37 @@ function callLocationAPI(){
 // $(document).ready(function(){
 //     $('.collapsible').collapsible();
 // });
-callLocationAPI();
+//callLocationAPI();
+
+
+// Function to pull city info base on user input
+function getCityInfo(){
+
+return [lon,lat];
+
+}
+
+
+$('#searchIcon').on('click',function(){
+
+//let cityPosition = getCityInfo();
+//var Lon = cityPosition[0];
+//var Lat = cityPosition[1];
+var cityName = $('#search').val();
+
+console.log(cityName);
+
+
+//HERE CALL TO POSITION API TO GET LON AND LAT FOR CITY
+
+
+var Lon = 38.90; // testing purposes
+var Lat = -77.03; // testing purposes
+
+callLocationAPI("Washington",Lon,Lat);
+
+
+// HERE CALL TO STATS API 
+
+
+});

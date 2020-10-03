@@ -28,7 +28,6 @@
       *    WORKING EXMAPLE - https://covid-api.com/api/reports?date=2020-04-16&q=US%20Alabama&iso=USA&region_name=US&region_province=Ala    ama&city_name=Autauga    
       */
      reports: "https://covid-api.com/api/reports?region_province=Alabama",
-
      /**
       *     total cases and deaths from all the regions available
       *     BASED ON DATE
