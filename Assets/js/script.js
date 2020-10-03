@@ -9,7 +9,7 @@ function nytCovidStats() {
         url: 'https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv',
         method: 'GET'
     }).then(function(response){
-        // console.log(response.split('\n'));
+        // // console.log(response.split('\n'));
         let table = response.split('\n');
         // store the keys in an array
         let tH = table[0].split(',');
@@ -46,7 +46,7 @@ nytCovidStats();
  *                         }
  */
 function provinceData(region){
-    console.log(region);
+    // console.log(region);
   
 }
 
@@ -75,7 +75,7 @@ function provinceData(region){
  */
 function stateData(state) {
    
-    console.log(state);
+    // console.log(state);
 
 }
 
@@ -98,7 +98,7 @@ function stateData(state) {
  *      }
  */
 function worldData(world) {
-    console.log(world);
+    // // console.log(world);
     $('#totalCases').text(world.confirmed);
     $('#totalRecovered').text(world.recovered);
     $('#totalDeaths').text(world.deaths);
@@ -192,9 +192,9 @@ function findLatLong(address) {
     };
     // ajax request
     $.ajax(URL).then(function(response){
-        // console.log(response)
+        // // console.log(response)
         let coords = response.results[0].locations[0].latLng;
-        console.log(coords);
+        // // console.log(coords);
         callLocationAPI(userInput,coords.lng,coords.lat);
         
     });
@@ -215,7 +215,7 @@ function worldWide() {
 
     // ajax request
     $.ajax(URL).then(function(response){
-        // console.log(response.data);
+        // // console.log(response.data);
         worldData(response.data);
     });
 
@@ -330,14 +330,14 @@ function callLocationAPI(cityName,Long,Lati){
     // var Lon = Long;
     // var Lat = Lati;
     var queryWords ='Covid'+'+'+cityName;
-    console.log(queryWords);
+    // console.log(queryWords);
     var queryUrlLocation = COVID_LOCATION_ENDPOINT+'?q='+queryWords+'&at='+Long+','+Lati+'&limit=10&apikey='+apiKeyLocation;
     // making request to Locations API
     $.ajax({
         url: queryUrlLocation,
         method: "GET"        
     }).then(function(response){
-    console.log(response.items.length);
+    // console.log(response.items.length);
     //Generating List of locations automatically DOM manipulation
     for (var i = 0;i<response.items.length;i++){
         // console.log(response.items[i]);     
@@ -347,14 +347,15 @@ function callLocationAPI(cityName,Long,Lati){
         var divBodyLoc=$('<div>');
         var iHeaderLoc =$('<i>');
         var spanLoc=$('<span>');
+        liLocations.attr('id', 'site-location');
         liLocations.attr('data-site',response.items[i].title);
         divHeaderLoc.attr('class','collapsible-header active');
         iHeaderLoc.attr('class','material-icons');
         divBodyLoc.attr('class','collapsible-body blue-grey lighten-4');             
         spanLoc.text(response.items[i].address.label);        
         divBodyLoc.append(spanLoc);
-        console.log(response);
-        console.log(response.items[i].contacts);                    
+        // console.log(response);
+        // console.log(response.items[i].contacts);                    
         divHeaderLoc.text(response.items[i].title);
         iHeaderLoc.text('place');        
         divHeaderLoc.append(iHeaderLoc);        
@@ -391,16 +392,16 @@ $('#searchIcon').on('click',function(){
 //var Lon = cityPosition[0];
 //var Lat = cityPosition[1];
 userInput = $('#search').val();
-console.log(userInput);
-console.log(state(userInput));
+// console.log(userInput);
+// console.log(state(userInput));
 if (state(userInput)){  
     alert('WOW');
 }else{
     var cityCounty = JSON.parse(localStorage.getItem(userInput));
-    console.log(cityCounty);
+    // console.log(cityCounty);
 
     findLatLong(userInput);
-    console.log(position);
+    // console.log(position);
 }
 
 
@@ -413,9 +414,7 @@ worldWide();
 
 $("#LiLocations").on('click',function(event){
     console.log(event.target);
-    console.log(this);
-    console.log($(event.target).parents('.active'));
-
+    console.log($(event.target).parents('#site-location').attr('data-site'));
 
 });
 
@@ -446,7 +445,7 @@ function searchAutoComplete(searchInput) {
  */
 var list = [];
 function listOfPlaces(predictions) {
-    // console.log("inside list of places")
+    // // console.log("inside list of places")
     for(let item in predictions){
         let places = predictions[item].descriptions;
         var liPop=$('<li>');
@@ -454,9 +453,9 @@ function listOfPlaces(predictions) {
         // $('#autopop').append(liPop);
         
         list.push(predictions[item].description);
-        console.log(predictions[item].description);
+        // // console.log(predictions[item].description);
     }
-    console.log(list);
+    // console.log(list);
 }
 
 $("#search").keydown(function() {
