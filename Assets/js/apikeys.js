@@ -4,7 +4,7 @@
  *  Finds the list of sites where testing is available
  *  website - https://developer.here.com/blog/finding-covid-19-testing-sites
  * 
- *  API EndPoint
+ *  API  EndPoint
  *  example - https://discover.search.hereapi.com/v1/discover?q=Covid&at=30.22,-92.02&limit=10&apikey={{APIKEY}}
  */ 
 

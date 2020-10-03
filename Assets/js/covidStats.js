@@ -2,7 +2,7 @@ import {COVID_STATS_ENDPOINTS} from './apikeys.js';
 
 
 /**
- * returns world wide covid stats
+ *  returns world wide covid stats
  */
 function worldWide() {
 
@@ -119,6 +119,3 @@ function provinces() {
 
 }
 
-worldWide();
-provinces();
-state('maryland');

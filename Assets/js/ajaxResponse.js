@@ -4,16 +4,19 @@
  *      
  * @param {*} region - is an object which has a list of usa province/city/county data
  *                   for example,
- *                   data : [{
+ *                    region : {
+ * 
+ *                          provinces : [{
  *                              name: "baltimore city"
  *                              lat: 12.02323
  *                              long: 15.234
- *                          },
- *                          {},{},{}....]
+ *                              },
+ *                              {},{},{}....]
+ *                         }
  */
 function provinceData(region){
     console.log(region);
-
+  
 }
 
 /**
