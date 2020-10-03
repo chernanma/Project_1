@@ -6,7 +6,8 @@
 function nytCovidStats() {
 
     // covid stats for us-counties
-    let county = [];
+    let countyData = [];
+    let countyList = [];
 
     // get the file
     $.ajax({
@@ -28,11 +29,13 @@ function nytCovidStats() {
                 tempObj[tH[i]] = row[i];
             }
             // save the obj to the table 
-            county.push(tempObj);
+            countyData.push(tempObj);
+            countyList.push(tempObj.county);
         }
         
         // save to local storage
-        window.localStorage.setItem('county', JSON.stringify(county));
+        window.localStorage.setItem('countyData', JSON.stringify(countyData));
+        window.localStorage.setItem('countyList', JSON.stringify(countyList));
         
     });
 }
