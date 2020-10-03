@@ -1,3 +1,6 @@
+/**
+ * list of all the US sates with lat and long
+ */
 const STATES = [
     { name: "Alabama", lat: "32.3182", long: "-86.9023" },
     { name: "Alaska", lat: "61.3707", long: "-152.4044" },

@@ -119,6 +119,3 @@ function provinces() {
 
 }
 
-worldWide();
-provinces();
-state('maryland');
