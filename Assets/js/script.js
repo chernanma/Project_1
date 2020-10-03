@@ -46,7 +46,7 @@ nytCovidStats();
  *                         }
  */
 function provinceData(region){
-    // console.log(region);
+    console.log(region);
   
 }
 
@@ -73,9 +73,16 @@ function provinceData(region){
  *                              regionISO: "USA"
  *                              }
  */
+
+ ///Display State Stats on main page
 function stateData(state) {
    
-    // console.log(state);
+    console.log(state);
+    console.log(state.confirmed);
+    $('#totalCasesState').text(state.confirmed);
+    $('#totalRecoveredState').text(state.recovered);
+    $('#totalDeathsState').text(state.deaths);
+    $('#totalActiveState').text(state.active);
 
 }
 
@@ -153,7 +160,7 @@ COVID_STATS_ENDPOINTS = {
 
 //website -https://developers.google.com/maps/documentation/embed
 // TO GET MAP FOR A SPECIFIC TEST SITE  
-GOOGLEAPIKEY = "AIzaSyA7mCsPnnmyqrG79LF96VdWSdXidtf8D0c";
+GOOGLEAPIKEY = "AIzaSyD4alQSwGW9U2s7IgAqMCMocMmTfbNuJSg";
 // URL for an Maps Embed API request is as follows:
 //  const GOOGLE_MAPS_ENDPOINT = "https://www.google.com/maps/embed/v1/place?key="
 
@@ -412,10 +419,21 @@ worldWide();
 
 });
 
+var locationName;
+var locName;
+
+//Load map when click on location from Locatin list
 $("#LiLocations").on('click',function(event){
     console.log(event.target);
     console.log($(event.target).parents('#site-location').attr('data-site'));
-
+    locationName = $(event.target).parents('#site-location').attr('data-site');
+    locName= locationName.replace('Covid-19 Testing Site: ','');
+    locName= locName.replace(/ /g, "+");
+    console.log(locName);
+    //Pullin data from google maps API 
+    var queryUrl = 'https://www.google.com/maps/embed/v1/place?key='+GOOGLEAPIKEY+'&q='+locName+userInput;
+    //Setting src into Iframe in maing page to display MAP
+    $('#map').attr('src',queryUrl);
 });
 
 
