@@ -1,4 +1,5 @@
-import {COVID_STATS_ENDPOINTS} from './apikeys.js';
+import {COVID_STATS_ENDPOINTS, MAPQUEST_API_KEY, MAPQUEST_GEOCODING_API_ENDPOINT} from './apikeys.js';
+
 
 
 /**
@@ -119,3 +120,30 @@ function provinces() {
 
 }
 
+/**
+ * 
+ * this function takes usa address and return latitude and longitude for the address
+ * 
+ * @param {*} address - us address
+ */
+function findLatLong(address) {
+
+    let queryString = `?key=${MAPQUEST_API_KEY}&location=${address}`;
+    let queryUrl = MAPQUEST_GEOCODING_API_ENDPOINT + queryString;
+    let URL = {
+        url: queryUrl,
+        method: 'GET'
+    };
+
+    // ajax request
+    $.ajax(URL).then(function(response){
+
+        // console.log(response)
+        let coords = response.results[0].locations[0].latLng;
+        latLngData(coords);
+
+    });
+
+}
+
+findLatLong('new york');

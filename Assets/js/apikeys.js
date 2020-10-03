@@ -33,6 +33,20 @@
    
  }; 
 
+
+ /**
+  *     Finds Latitude and Longitude for the given address
+  *     
+  *     MAPQuest.com
+  * 
+  *     GEOCODING API
+  * 
+  *     Returns LAT and LONG value;
+  */
+  const MAPQUEST_API_KEY = '1AXLjWPBMJWOb33NJl8Jf0dd8cxGbjBx';
+  const MAPQUEST_GEOCODING_API_ENDPOINT = 'http://www.mapquestapi.com/geocoding/v1/address';
+
+
 /** 
  * 
  *              GOOGLE MAPS API
@@ -42,7 +56,7 @@
  * 
  * 
  */ 
-export {COVID_STATS_ENDPOINTS, COVID_LOCATION_APIKEY, COVID_LOCATION_ENDPOINT};
+export {COVID_STATS_ENDPOINTS, COVID_LOCATION_APIKEY, COVID_LOCATION_ENDPOINT,MAPQUEST_API_KEY,MAPQUEST_GEOCODING_API_ENDPOINT};
 
 //website -https://developers.google.com/maps/documentation/embed
 // TO GET MAP FOR A SPECIFIC TEST SITE  

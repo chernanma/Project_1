@@ -1,5 +1,4 @@
 
-
 /**
  *      
  * @param {*} region - is an object which has a list of usa province/city/county data
@@ -68,3 +67,19 @@ function stateData(state) {
 function worldData(world) {
     console.log(world);
 }
+
+/**
+ * 
+ * @param {*} coords - lat and long value for the searched address
+ * 
+ *  for example,
+ *  coords : {
+ *      lat: 12.122
+ *      long: 12.123 
+ *  }
+ */
+function latLngData(coords) {
+    console.log(coords);
+}
+
+
