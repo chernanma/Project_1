@@ -4,7 +4,7 @@
  *  Finds the list of sites where testing is available
  *  website - https://developer.here.com/blog/finding-covid-19-testing-sites
  * 
- *  API EndPoint
+ *  API  EndPoint
  *  example - https://discover.search.hereapi.com/v1/discover?q=Covid&at=30.22,-92.02&limit=10&apikey={{APIKEY}}
  */ 
 
@@ -19,22 +19,16 @@
 
  const COVID_STATS_ENDPOINTS = {
 
+    /**
+     * endpoints 
+     */
+    states: "https://covid-api.com/api/reports?region_province=",
 
     /**
-     *  endpoint for local region
+     *  endpoint for all region in usa
      */
     provinces: "https://covid-api.com/api/provinces/USA",
-      /** 
-      *    WORKING EXMAPLE - https://covid-api.com/api/reports?date=2020-04-16&q=US%20Alabama&iso=USA&region_name=US&region_province=Ala    ama&city_name=Autauga    
-      */
-     reports: "https://covid-api.com/api/reports?region_province=Alabama",
-     /**
-      *     total cases and deaths from all the regions available
-      *     BASED ON DATE
-      *     date {query} - The date of report in the format YYYY-MM-DD
-      *     example, 2020-09-22
-      *     WORKING EXAMPLE  -  https://covid-api.com/api/reports/total?date=2020-09-25
-      */
+    */
      totalCases: "https://covid-api.com/api/reports/total"
    
  }; 
