@@ -28,7 +28,7 @@
      *  endpoint for all region in usa
      */
     provinces: "https://covid-api.com/api/provinces/USA",
-    */
+    
      totalCases: "https://covid-api.com/api/reports/total"
    
  }; 
