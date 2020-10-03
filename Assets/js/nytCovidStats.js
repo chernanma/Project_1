@@ -1,7 +1,7 @@
 
 
 /**
- * gets the covid  stats for all the  cities in usa, live data
+ * gets the covid   stats for all the  cities in usa, live data
  */
 function nytCovidStats() {
 
