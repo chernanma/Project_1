@@ -4,7 +4,7 @@
  *      
  * @param {*} region - is an object which has a list of usa province/city/county data
  *                   for example,
- *                   region : {
+ *                    region : {
  * 
  *                          provinces : [{
  *                              name: "baltimore city"
