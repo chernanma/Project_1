@@ -366,12 +366,14 @@ function callLocationAPI(cityName,Long,Lati){
         liLocations.attr('data-site',response.items[i].title);
         divHeaderLoc.attr('class','collapsible-header active');
         iHeaderLoc.attr('class','material-icons');
-        divBodyLoc.attr('class','collapsible-body blue-grey lighten-4');             
+        divBodyLoc.attr('class','collapsible-body blue-grey lighten-4'); 
+        var locShortName= response.items[i].title;   
+        locShortName= locShortName.replace('Covid-19 Testing Site: ','');         
         spanLoc.text(response.items[i].address.label);        
         divBodyLoc.append(spanLoc);
         // console.log(response);
         // console.log(response.items[i].contacts);                    
-        divHeaderLoc.text(response.items[i].title);
+        divHeaderLoc.text(locShortName);
         iHeaderLoc.text('place');        
         divHeaderLoc.append(iHeaderLoc);        
         liLocations.append(divHeaderLoc);
