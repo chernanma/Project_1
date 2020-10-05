@@ -393,9 +393,14 @@ return [lon,lat];
 
 }
 
+
 var userInput;
+
+//Click event on Search button
 $('#searchIcon').on('click',function(){
 
+// Clearing List of locations for every search
+$('#LiLocations').empty();    
 //let cityPosition = getCityInfo();
 //var Lon = cityPosition[0];
 //var Lat = cityPosition[1];
@@ -405,9 +410,10 @@ userInput = $('#search').val();
 if (state(userInput)){  
     alert('WOW');
 }else{
-    var cityCounty = JSON.parse(localStorage.getItem(userInput));
-    // console.log(cityCounty);
-    console.log(cityCounty.length);
+    var cityCounty = JSON.stringify(localStorage.getItem(userInput));
+    
+    //console.log(typeof(cityCounty));
+    //console.log(cityCounty);
 
     findLatLong(userInput);
     // console.log(position);
