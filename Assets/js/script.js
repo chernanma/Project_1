@@ -281,6 +281,7 @@ function state(stateName) {
         
         // pass the information to stateData
         stateData(state)
+       
         return true;
     })
     .fail(function() {
@@ -406,6 +407,7 @@ if (state(userInput)){
 }else{
     var cityCounty = JSON.parse(localStorage.getItem(userInput));
     // console.log(cityCounty);
+    console.log(cityCounty.length);
 
     findLatLong(userInput);
     // console.log(position);
@@ -414,6 +416,8 @@ if (state(userInput)){
 
 // HERE CALL TO WORLDWIDE STATS API 
 worldWide();
+
+
 
 
 
@@ -479,3 +483,4 @@ function listOfPlaces(predictions) {
 $("#search").keydown(function() {
    // searchAutoComplete(userInput);
 });
+
