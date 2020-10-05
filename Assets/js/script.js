@@ -201,7 +201,8 @@ function findLatLong(address) {
     $.ajax(URL).then(function(response){
         // // console.log(response)
         let coords = response.results[0].locations[0].latLng;
-        // // console.log(coords);
+        console.log(coords);
+        console.log(userInput);
         callLocationAPI(userInput,coords.lng,coords.lat);
         
     });
@@ -337,9 +338,12 @@ function callLocationAPI(cityName,Long,Lati){
     var apiKeyLocation = COVID_LOCATION_APIKEY;
     // var Lon = Long;
     // var Lat = Lati;
-    var queryWords ='Covid'+'+'+cityName;
-    // console.log(queryWords);
-    var queryUrlLocation = COVID_LOCATION_ENDPOINT+'?q='+queryWords+'&at='+Long+','+Lati+'&limit=10&apikey='+apiKeyLocation;
+    var queryWords ='Covid'+'+'+cityName;   
+    queryWords= queryWords.replace(/ /g, "+");
+    ueryWords= queryWords.replace(/,/g,"" );
+    console.log(queryWords);
+    var queryUrlLocation = COVID_LOCATION_ENDPOINT+'?q=Covid&at='+Lati+','+Long+'&limit=10&apikey='+apiKeyLocation;
+    console.log(queryUrlLocation);
     // making request to Locations API
     $.ajax({
         url: queryUrlLocation,
@@ -439,9 +443,12 @@ $("#LiLocations").on('click',function(event){
     locationName = $(event.target).parents('#site-location').attr('data-site');
     locName= locationName.replace('Covid-19 Testing Site: ','');
     locName= locName.replace(/ /g, "+");
+    locName= locName.replace(/,/g,"" );
     console.log(locName);
+   
     //Pullin data from google maps API 
-    var queryUrl = 'https://www.google.com/maps/embed/v1/place?key='+GOOGLEAPIKEY+'&q='+locName+userInput;
+    var queryUrl = 'https://www.google.com/maps/embed/v1/place?key='+GOOGLEAPIKEY+'&q='+locName;
+    console.log(queryUrl);
     //Setting src into Iframe in maing page to display MAP
     $('#map').attr('src',queryUrl);
 });
@@ -471,22 +478,43 @@ function searchAutoComplete(searchInput) {
  *
  * @param {*} autoComplete - is an array, with list of all places matching the places api ajax request
  */
-var list = [];
+
 function listOfPlaces(predictions) {
-    // // console.log("inside list of places")
+    var list = [];
+    // console.log(predictions);
     for(let item in predictions){
-        let places = predictions[item].descriptions;
-        var liPop=$('<li>');
+        let place = predictions[item].description;
         // liPop.text(places);
         // $('#autopop').append(liPop);
-        
-        list.push(predictions[item].description);
+        list.push(place);
         // // console.log(predictions[item].description);
+    }
+    $('#autopopu').empty();
+    for(let i in list){
+        var $li =$('<li class="collection-item">');
+        // $li.on('click', placesLiEventHandler);
+        $li.text(list[i])
+        $('#autopopu').append($li);
     }
     // console.log(list);
 }
 
 $("#search").keydown(function() {
-   // searchAutoComplete(userInput);
+    // count the number of text
+    let $this = $(this);
+    let input = $this.val();
+    let textLength = input.length;
+    if(parseInt(textLength/4) > 0) {
+        searchAutoComplete(input);    
+    }
+   
+});
+
+$('#autopopu').on('click',function(event){
+    let address = $(event.target).text();
+    console.log(address);
+    $('#search').val(address);
+    userInput = address;
+    findLatLong(address);
 });
 
