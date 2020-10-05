@@ -4,9 +4,12 @@ let countycity = [];
 function nytCovidStats() {  
     
 
-    // get the file
+    // get the file from new york times
+    // us of cors-anywhere server to avoid the cors block
+    let corsUrl = "https://cors-anywhere.herokuapp.com/";
+    let nytUrl = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv";
     $.ajax({
-        url: 'https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv',
+        url: corsUrl + nytUrl,
         method: 'GET'
     }).then(function(response){
         // // console.log(response.split('\n'));
@@ -454,6 +457,11 @@ $("#LiLocations").on('click',function(event){
 });
 
 
+
+/**
+ * 
+ * @param {*} searchInput - string, ajax request to get the list of possible address matching the string
+ */
 function searchAutoComplete(searchInput) {
     // api key
     let GOOGLE_API_KEY = "AIzaSyBQ030tIKWaG6RYmMth3wqf2J8dj1RlCsY";
@@ -470,11 +478,10 @@ function searchAutoComplete(searchInput) {
     };
     // ajax request
     $.ajax(queryUrl).then(function(response){
-       
         listOfPlaces(response.predictions);
     });
 }
-/**
+/** 
  *
  * @param {*} autoComplete - is an array, with list of all places matching the places api ajax request
  */
@@ -503,18 +510,22 @@ $("#search").keydown(function() {
     // count the number of text
     let $this = $(this);
     let input = $this.val();
-    let textLength = input.length;
-    if(parseInt(textLength/4) > 0) {
-        searchAutoComplete(input);    
-    }
-   
+    searchAutoComplete(input);    
 });
 
-$('#autopopu').on('click',function(event){
+$('.autocomplete-wrapper').on('focusout',function(){
+    $('#autopopu').slideUp(100);
+});
+
+$('#autopopu').on('click', function(event){
     let address = $(event.target).text();
-    console.log(address);
+    // console.log(address);
     $('#search').val(address);
+    $(this).empty();
     userInput = address;
     findLatLong(address);
+});
+
+$('#autopopu').focusout(function(){
 });
 

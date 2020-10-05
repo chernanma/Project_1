@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
+  <link rel="stylesheet" href="./Assets/css/style.css">
+
   <!--Let browser know website is optimized for mobile-->
   <style>
     .scroller {
@@ -35,6 +37,7 @@
       <a href="#" class="brand-logo center">Covid-19 Test Site & Stats</a>
     </div>
   </nav>
+
   <!-- created container -->
   <main>
     <div class='row'>
@@ -42,12 +45,13 @@
         <div class="row">
           <div class="col s12">
             <div class="input-field">
-              <input id="search" type="text" class="validate">
-              <label for="search">Enter City or State</label>
-              <i class="material-icons prefix waves-effect waves-light " id="searchIcon">search</i>
-              <ul id="autopopu">
-              </ul>
+                  <input id="search" type="text" class="validate">
+                  <label for="search">Enter City or State</label>
+                  <i class="material-icons prefix waves-effect waves-light" id="searchIcon">search</i>
+                  <ul id="autopopu" class="collection z-depth-3">
+                  </ul>  
             </div>
+            
             <nav class='blue-grey darken-1 z-depth-5'>
               <div class="nav-wrapper blue-grey darken-1">
                 <p class='flow-text blue-grey darken-1 center'>Locations</p>

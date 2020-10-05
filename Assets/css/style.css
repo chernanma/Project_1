@@ -1,0 +1,9 @@
+
+
+.collection-item:hover {
+    background-color:#468169;
+    color: white;
+    cursor: pointer;
+}
+
+
