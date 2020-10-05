@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
   <title>Covid-19 Test Site Finder and Stats Info</title>
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -10,299 +11,294 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  
+
   <!--Let browser know website is optimized for mobile-->
-<style>
-
+  <style>
     .scroller {
-        width: auto;
-        height: 550px;
-        overflow-y:scroll;
-        scrollbar-color: rebeccapurple green;
-        scrollbar-width: thin;
-      }
-      .prefix{
-        right: 0;
-      }
+      width: auto;
+      height: 550px;
+      overflow-y: scroll;
+      scrollbar-color: rebeccapurple green;
+      scrollbar-width: thin;
+    }
 
-</style>
+    .prefix {
+      right: 0;
+    }
+  </style>
 </head>
+
 <body>
   <!-- header -->
   <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo center">Covid-19 Test Site Finder and Stats Info</a>
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-      </ul>
+    <div class="  cyan nav-wrapper">
+      <a href="#" class="brand-logo center">Covid-19 Test Site & Stats</a>
     </div>
   </nav>
-<!-- created container -->
-<div class='row'>
+  <!-- created container -->
+  <div class='row'>
     <div class='col s3'>
-        <div class="row">
-            <div class="col s12">   
-                <div class="input-field">                  
-                  <input id="search" type="text" class="validate">
-                  <label for="search">Enter City or State</label>
-                  <i class="material-icons prefix waves-effect waves-light " id="searchIcon" >search</i>
-                  <ul id="autopopu">
-                  </ul>                  
-                </div>                 
-                <nav class='blue-grey darken-1 z-depth-5' >
-                  <div class="nav-wrapper blue-grey darken-1">
-                    <p class='flow-text blue-grey darken-1 center'>Locations</p>
-                      
-                  </div>
-                </nav>  
-                <div class='blue-grey darken-1 z-depth-5 scroller'>
-                     <ul  class="collapsible table-of-contents " id="LiLocations" data-collapsible="accordion">
-    
-                      </ul> 
-                </div>
-                
-                
+      <div class="row">
+        <div class="col s12">
+          <div class="input-field">
+            <input id="search" type="text" class="validate">
+            <label for="search">Enter City or State</label>
+            <i class="material-icons prefix waves-effect waves-light " id="searchIcon">search</i>
+            <ul id="autopopu">
+            </ul>
+          </div>
+          <nav class='blue-grey darken-1 z-depth-5'>
+            <div class="nav-wrapper blue-grey darken-1">
+              <p class='flow-text blue-grey darken-1 center'>Locations</p>
+
             </div>
+          </nav>
+          <div class='blue-grey darken-1 z-depth-5 scroller'>
+            <ul class="collapsible table-of-contents " id="LiLocations" data-collapsible="accordion">
+
+            </ul>
+          </div>
+
+
         </div>
+      </div>
     </div>
     <div class='col s9'>
-        <div >
-            <!-- Page Layout here -->
-            <div class="row">  
-                  <div class="col s9">
-                     </div>
+      <div>
+        <!-- Page Layout here -->
+        <div class="row">
+          <div class="col s9">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m12 m6">
+
+
+            <ul class="collapsible ">
+              <li class="blue-grey darken-1">
+                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Statistics</div>
+                <div class="collapsible-body blue-grey darken-1">
+                  <nav class="orange darken-3">
+                    <div class="nav-wrapper">
+                      <a href="#" class="brand-logo center">Worldwide</a>
+                      <ul id="nav-mobile" class="left hide-on-med-and-down">
+                      </ul>
                     </div>
-                    <div class="row">
-                      <div class="col m12 m6">
-                               
-                                                  
-                            <ul class="collapsible ">
-                              <li class="blue-grey darken-1">
-                                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Statistics</div>
-                                <div class="collapsible-body blue-grey darken-1">
-                                  <nav class="orange darken-3">
-                                    <div class="nav-wrapper">
-                                      <a href="#" class="brand-logo center">Worldwide</a>
-                                      <ul id="nav-mobile" class="left hide-on-med-and-down">
-                                      </ul>
-                                    </div>
-                                  </nav>
-                                  <div class='row'>
-                                    <div class='col s3'>
-                                      <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
-                                    </div>
-                                    <div class='col s9'>
-                                      <div class='row'>
-                                        <div class='col s6'>
-                                          <div class='row'>                                          
-                                              <div class="col s12">                                              
-                                                <div class="card-content white-text"> 
-                                                  <div class="card orange darken-1 lighten-4">
-                                                    <p class="card-title  white-text">Total Cases</p>                                                                                         
-                                                  </div>                              
-                                                    <H3 id="totalCases" > </H3>                                                                                                
-                                                  </div>       
-                                              </div>                                          
-                                          </div>
-                                          <div class='row'>
-                                            <div class="col s12">
-                                              <div class="card-content white-text"> 
-                                                <div class="card orange darken-1 lighten-4">
-                                                  <p class="card-title  white-text">Total Recovered</p>                                                                                         
-                                                </div>                              
-                                                  <H3 id="totalRecovered"> </H3>                                                                                                
-                                                </div> 
-                                            </div>    
-                                          </div>
-  
-                                        </div>
-                                        <div class='col s6'>
-                                          <div class='row'>
-                                            <div class="col s12">
-                                              <div class="card-content white-text"> 
-                                                <div class="card orange darken-1 lighten-4">
-                                                  <p class="card-title  white-text">Total Deaths</p>                                                                                         
-                                                </div>                              
-                                                  <H3 id="totalDeaths"> </H3>                                                                                                
-                                                </div> 
-                                            </div>    
-                                          </div>
-                                          <div class='row'>
-                                            <div class='row'>
-                                              <div class="col s12">
-                                                <div class="card-content white-text"> 
-                                                  <div class="card orange darken-1 lighten-4">
-                                                    <p class="card-title  white-text">Total Active </p>                                                                                         
-                                                  </div>                              
-                                                    <H3 id="totalActive"> </H3>                                                                                                
-                                                  </div> 
-                                              </div>    
-                                            </div>
-                                            
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>                                  
-                                  </div>
-                                  <nav class="orange darken-3">
-                                    <div class="nav-wrapper">
-                                      <a href="#" class="brand-logo center">Statewide</a>
-                                      <ul id="nav-mobile" class="left hide-on-med-and-down">
-                                      </ul>
-                                    </div>
-                                  </nav>
-                                  <div class='row'>
-                                    <div class='col s3'>
-                                      <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
-                                    </div>
-                                    <div class='col s9'>
-                                      <div class='row'>
-                                        <div class='col s6'>
-                                          <div class='row'>                                          
-                                              <div class="col s12">                                              
-                                                <div class="card-content white-text"> 
-                                                  <div class="card orange darken-1 lighten-4">
-                                                    <p class="card-title  white-text">Total Cases</p>                                                                                         
-                                                  </div>                              
-                                                    <H3 id="totalCasesState" > </H3>                                                                                                
-                                                  </div>       
-                                              </div>                                          
-                                          </div>
-                                          <div class='row'>
-                                            <div class="col s12">
-                                              <div class="card-content white-text"> 
-                                                <div class="card orange darken-1 lighten-4">
-                                                  <p class="card-title  white-text">Total Recovered</p>                                                                                         
-                                                </div>                              
-                                                  <H3 id="totalRecoveredState"> </H3>                                                                                                
-                                                </div> 
-                                            </div>    
-                                          </div>
-  
-                                        </div>
-                                        <div class='col s6'>
-                                          <div class='row'>
-                                            <div class="col s12">
-                                              <div class="card-content white-text"> 
-                                                <div class="card orange darken-1 lighten-4">
-                                                  <p class="card-title  white-text">Total Deaths</p>                                                                                         
-                                                </div>                              
-                                                  <H3 id="totalDeathsState"> </H3>                                                                                                
-                                                </div> 
-                                            </div>    
-                                          </div>
-                                          <div class='row'>
-                                            <div class='row'>
-                                              <div class="col s12">
-                                                <div class="card-content white-text"> 
-                                                  <div class="card orange darken-1 lighten-4">
-                                                    <p class="card-title  white-text">Total Active </p>                                                                                         
-                                                  </div>                              
-                                                    <H3 id="totalActiveState"> </H3>                                                                                                
-                                                  </div> 
-                                              </div>    
-                                            </div>
-                                            
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>                                  
-                                  </div>
-
-                                  <nav class="orange darken-3">
-                                    <div class="nav-wrapper">
-                                      <a href="#" class="brand-logo center">Local</a>
-                                      <ul id="nav-mobile" class="left hide-on-med-and-down">
-                                      </ul>
-                                    </div>
-                                  </nav>
-                                  <div class='row'>
-                                    <div class='col s3'>
-                                      <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
-                                    </div>
-                                    <div class='col s9'>
-                                      <div class='row'>
-                                        <div class='col s6'>
-                                          <div class='row'>                                          
-                                              <div class="col s12">                                              
-                                                <div class="card-content white-text"> 
-                                                  <div class="card orange darken-1 lighten-4">
-                                                    <p class="card-title  white-text">Total Cases</p>                                                                                         
-                                                  </div>                              
-                                                    <H3 id="totalCasesLocal" > </H3>                                                                                                
-                                                  </div>       
-                                              </div>                                          
-                                          </div>
-                                          <div class='row'>
-                                            <div class="col s12">
-                                              <div class="card-content white-text"> 
-                                                <div class="card orange darken-1 lighten-4">
-                                                  <p class="card-title  white-text">Total Recovered</p>                                                                                         
-                                                </div>                              
-                                                  <H3 id="totalRecoveredLocal"> </H3>                                                                                                
-                                                </div> 
-                                            </div>    
-                                          </div>
-  
-                                        </div>
-                                        <div class='col s6'>
-                                          <div class='row'>
-                                            <div class="col s12">
-                                              <div class="card-content white-text"> 
-                                                <div class="card orange darken-1 lighten-4">
-                                                  <p class="card-title  white-text">Total Deaths</p>                                                                                         
-                                                </div>                              
-                                                  <H3 id="totalDeathsLocal"> </H3>                                                                                                
-                                                </div> 
-                                            </div>    
-                                          </div>
-                                          <div class='row'>
-                                            <div class='row'>
-                                              <div class="col s12">
-                                                <div class="card-content white-text"> 
-                                                  <div class="card orange darken-1 lighten-4">
-                                                    <p class="card-title  white-text">Total Active </p>                                                                                         
-                                                  </div>                              
-                                                    <H3 id="totalActiveLocal"> </H3>                                                                                                
-                                                  </div> 
-                                              </div>    
-                                            </div>
-                                            
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>                                  
-                                  </div>
-                                </div>                                
-                              </li>
-
-                              <li>
-                                <div class="collapsible-header"><i class="material-icons">place</i>Map</div>
-                                <div class="collapsible-body blue-grey darken-1 white-text center">                                  
-                                  <iframe id="map"
-                                        width="600"
-                                        height="450"
-                                        frameborder="0" style="border:0"
-                                        src="" allowfullscreen>
-                                      </iframe>
-                             </div>
-                              </li>
-
-                              <li>
-                                <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-                                <div class="collapsible-body blue-grey darken-1 white-text">
-                                  <span>Lorem ipsum dolor sit amet.</span>
+                  </nav>
+                  <div class='row'>
+                    <div class='col s3'>
+                      <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
+                    </div>
+                    <div class='col s9'>
+                      <div class='row'>
+                        <div class='col s6'>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Cases</p>
                                 </div>
-                              </li>
-                            </ul>                          
+                                <H3 id="totalCases"> </H3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Recovered</p>
+                                </div>
+                                <H3 id="totalRecovered"> </H3>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class='col s6'>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Deaths</p>
+                                </div>
+                                <H3 id="totalDeaths"> </H3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='row'>
+                            <div class='row'>
+                              <div class="col s12">
+                                <div class="card-content white-text">
+                                  <div class="card orange darken-1 lighten-4">
+                                    <p class="card-title  white-text">Total Active </p>
+                                  </div>
+                                  <H3 id="totalActive"> </H3>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    
-      </div>  
-    </div>      
-        
-  </div> 
+                  </div>
+                  <nav class="orange darken-3">
+                    <div class="nav-wrapper">
+                      <a href="#" class="brand-logo center">Statewide</a>
+                      <ul id="nav-mobile" class="left hide-on-med-and-down">
+                      </ul>
+                    </div>
+                  </nav>
+                  <div class='row'>
+                    <div class='col s3'>
+                      <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
+                    </div>
+                    <div class='col s9'>
+                      <div class='row'>
+                        <div class='col s6'>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Cases</p>
+                                </div>
+                                <H3 id="totalCasesState"> </H3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Recovered</p>
+                                </div>
+                                <H3 id="totalRecoveredState"> </H3>
+                              </div>
+                            </div>
+                          </div>
 
-  <script  src="./Assets/js/script.js"></script>
- 
+                        </div>
+                        <div class='col s6'>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Deaths</p>
+                                </div>
+                                <H3 id="totalDeathsState"> </H3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='row'>
+                            <div class='row'>
+                              <div class="col s12">
+                                <div class="card-content white-text">
+                                  <div class="card orange darken-1 lighten-4">
+                                    <p class="card-title  white-text">Total Active </p>
+                                  </div>
+                                  <H3 id="totalActiveState"> </H3>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <nav class="orange darken-3">
+                    <div class="nav-wrapper">
+                      <a href="#" class="brand-logo center">Local</a>
+                      <ul id="nav-mobile" class="left hide-on-med-and-down">
+                      </ul>
+                    </div>
+                  </nav>
+                  <div class='row'>
+                    <div class='col s3'>
+                      <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
+                    </div>
+                    <div class='col s9'>
+                      <div class='row'>
+                        <div class='col s6'>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Cases</p>
+                                </div>
+                                <H3 id="totalCasesLocal"> </H3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Recovered</p>
+                                </div>
+                                <H3 id="totalRecoveredLocal"> </H3>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class='col s6'>
+                          <div class='row'>
+                            <div class="col s12">
+                              <div class="card-content white-text">
+                                <div class="card orange darken-1 lighten-4">
+                                  <p class="card-title  white-text">Total Deaths</p>
+                                </div>
+                                <H3 id="totalDeathsLocal"> </H3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='row'>
+                            <div class='row'>
+                              <div class="col s12">
+                                <div class="card-content white-text">
+                                  <div class="card orange darken-1 lighten-4">
+                                    <p class="card-title  white-text">Total Active </p>
+                                  </div>
+                                  <H3 id="totalActiveLocal"> </H3>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="collapsible-header"><i class="material-icons">place</i>Map</div>
+                <div class="collapsible-body blue-grey darken-1 white-text center">
+                  <iframe id="map" width="600" height="450" frameborder="0" style="border:0" src="" allowfullscreen>
+                  </iframe>
+                </div>
+              </li>
+
+              <li>
+                <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+                <div class="collapsible-body blue-grey darken-1 white-text">
+                  <span>Lorem ipsum dolor sit amet.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./Assets/js/script.js"></script>
+
 </body>
+
 </html>
