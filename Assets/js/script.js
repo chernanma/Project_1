@@ -516,6 +516,7 @@ $('#autopopu').on('click',function(event){
     let address = $(event.target).text();
     console.log(address);
     $('#search').val(address);
+    $(this).empty();
     userInput = address;
     findLatLong(address);
 });
