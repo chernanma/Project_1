@@ -82,9 +82,9 @@ function stateData(state) {
    
     console.log(state);
     console.log(state.confirmed);
-    $('ul.state-stats').children('.active-case').text(state.confirmed);
-    $('ul.state-stats').children('.deaths').text(state.recovered);
-    $('ul.state-stats').children('.confirmed').text(state.deaths);
+    $('.usa-stats').children('.active-case').text(state.confirmed);
+    $('.usa-stats').children('.deaths').text(state.recovered);
+    $('.usa-stats').children('.confirmed').text(state.deaths);
    
 }
 
@@ -236,6 +236,7 @@ function worldWide() {
  */
 function state(stateName) {
 
+    console.log(stateName);
     // query url
     let queryUrl = COVID_STATS_ENDPOINTS.states + stateName;
     // url object
