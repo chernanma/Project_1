@@ -74,7 +74,7 @@ function nytCovidStats() {
 ---
 ## How To Use
 
-<---- how to use HERE -----> 
+<---- how to use HERE --------> 
 
 ## Screenshots
 
