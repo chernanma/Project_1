@@ -30,11 +30,54 @@
 
 ##### Code sample - JQuery
 #
+
 ```js
+* returns the province data for USA regions
+ */
+function provinces() {
+    // query url
+    let queryUrl = COVID_STATS_ENDPOINTS.provinces;
+    // url object
+    let URL = {
+        url: queryUrl,
+        method: 'GET'
+    };
+
+    // ajax request
+    $.ajax(URL).then(function(response){
+        // console.log(response);
+        // stores province data
+        let usa = {
+            provinces: []
+        };
+        // console.log(response.data);
+        for(let i = 0; i < response.data.length; i++) {
+            // obj
+            let obj = response.data[i];
+            // temp obj
+            usa.provinces.push({
+                name: obj.province,
+                lat: obj.lat,
+                long: obj.long
+            });
+        } 
+
+        // view method displays provinces stats
+        // usa is an object which has list of all provinces
+        provinceData(usa);
+
+    });
+
+
+}
+
+
+
 
 ```
 ##### Code sample - AJAX to get data from the nyCovidStats API
-#
+
+
 ```js
 / covid stats  variable for us-counties
 let countycity = [];
@@ -74,7 +117,7 @@ function nytCovidStats() {
 ---
 ## How To Use
 
-<---- The User will enter a specific location which will display all nearby testing locations in that area. Users can also view directions and testing sites via map and gps intergrated by developers. The current statistics can also be displayed with a "click of the finger" function that displays current data and trends provided by API's.--------> 
+<---- The User will enter a specific location which will display all nearby testing locations in that area. Users can also view directions and testing sites via map and gps intergrated by developers. The current statistics can also be displayed with a "click of the finger" function that captures current analytical data and trends provided by API's.--------> 
 
 ## Screenshots
 
