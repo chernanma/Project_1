@@ -27,6 +27,20 @@
     .prefix {
       right: 0;
     }
+    .collection-item:hover {
+    background-color:#468169;
+    color: white;
+    cursor: pointer;
+    }
+    .collapsible-body {
+      padding: 0 !important;
+    }
+    .collapsible-body >span {
+      display: inline-block;
+    }
+    .collapsible-body > span {
+      padding: 1rem !important;
+    }
   </style>
 </head>
 
@@ -42,31 +56,30 @@
   <main>
     <div class='row'>
       <div class='col s3'>
-        <div class="row">
-          <div class="col s12">
-            <div class="input-field">
-                  <input id="search" type="text" class="validate">
-                  <label for="search">Enter City or State</label>
-                  <i class="material-icons prefix waves-effect waves-light" id="searchIcon">search</i>
-                  <ul id="autopopu" class="collection z-depth-3">
-                  </ul>  
-            </div>
-            
-            <nav class='blue-grey darken-1 z-depth-5'>
-              <div class="nav-wrapper blue-grey darken-1">
-                <p class='flow-text blue-grey darken-1 center'>Locations</p>
-
-              </div>
-            </nav>
-            <div class='blue-grey darken-1 z-depth-5 scroller'>
+    <!-- row -->
+    <div class="row">
+      <!-- search container -->
+      <div class="col s12">
+        <!-- search input -->
+        <div class="input-field">
+              <input id="search" type="text" class="validate">
+              <label for="search">Enter City or State</label>
+              <i class="material-icons prefix waves-effect waves-light" id="searchIcon">search</i>
+              <ul id="autopopu" class="collection z-depth-3">
+              </ul>
+        </div>
+        <!-- Test Sites , collapsible -->
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">location_on</i>Test Location</div>
+            <div class="collapsible-body">
               <ul class="collapsible table-of-contents " id="LiLocations" data-collapsible="accordion">
-
               </ul>
             </div>
-
-
-          </div>
-        </div>
+          </li>
+        </ul>
+      </div>
+  </div>
       </div>
       <div class='col s9'>
         <div>
