@@ -16,6 +16,27 @@
 
   <!--Let browser know website is optimized for mobile-->
   <style>
+
+    .collection-item {
+      color: black;
+    }
+    .collection-item:hover {
+      background-color:#468169;
+      color: white;
+      cursor: pointer;
+    }
+
+    .collapsible-body {
+      padding: 0 !important;
+    }
+
+    .collapsible-body >span {
+      display: inline-block;
+    }
+    .collapsible-body > span {
+      padding: 1rem !important;
+    }
+
     .scroller {
       width: auto;
       height: 550px;
@@ -27,268 +48,123 @@
     .prefix {
       right: 0;
     }
-    .collection-item:hover {
-    background-color:#468169;
-    color: white;
-    cursor: pointer;
-    }
-    .collapsible-body {
-      padding: 0 !important;
-    }
-    .collapsible-body >span {
-      display: inline-block;
-    }
-    .collapsible-body > span {
-      padding: 1rem !important;
-    }
   </style>
 </head>
 
 <body>
   <!-- header -->
   <nav>
-    <div class="  cyan nav-wrapper">
-      <a href="#" class="brand-logo center">Covid-19 Test Site & Stats</a>
+    <div class="cyan nav-wrapper">
+      <a href="#" class="brand-logo center"><h5>Covid-19 Test Site & Stats</h5></a>
     </div>
   </nav>
 
   <!-- created container -->
-  <main>
+  <main class="">
     <div class='row'>
-      <div class='col s3'>
-    <!-- row -->
-    <div class="row">
-      <!-- search container -->
-      <div class="col s12">
-        <!-- search input -->
-        <div class="input-field">
-              <input id="search" type="text" class="validate">
-              <label for="search">Enter City or State</label>
-              <i class="material-icons prefix waves-effect waves-light" id="searchIcon">search</i>
-              <ul id="autopopu" class="collection z-depth-3">
+
+      <!-- search bar and test sties -->
+      <div class='col s12 m3'>
+        <!-- row -->
+        <div class="row">
+            <!-- search container -->
+            <div class="col s12">
+              <!-- search input -->
+              <div class="input-field">
+                    <input id="search" type="text" class="validate">
+                    <label for="search">Enter City or State</label>
+                    <i class="material-icons prefix waves-effect waves-light" id="searchIcon">search</i>
+                    <ul id="autopopu" class="collection z-depth-3">
+                    </ul>  
+              </div>
+              
+              <!-- Test Sites , collapsible -->
+              <ul class="collapsible">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">location_on</i>Test Location</div>
+                  <div class="collapsible-body">
+                    <ul class="collapsible table-of-contents " id="LiLocations" data-collapsible="accordion">
+        
+                    </ul>
+                  </div>
+                </li>
+               
               </ul>
+              
+
+
+            </div>
         </div>
-        <!-- Test Sites , collapsible -->
-        <ul class="collapsible">
-          <li>
-            <div class="collapsible-header"><i class="material-icons">location_on</i>Test Location</div>
-            <div class="collapsible-body">
-              <ul class="collapsible table-of-contents " id="LiLocations" data-collapsible="accordion">
-              </ul>
-            </div>
-          </li>
-        </ul>
       </div>
-  </div>
-      </div>
-      <div class='col s9'>
-        <div>
-          <!-- Page Layout here -->
-          <div class="row">
-            <div class="col s9">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col m12 m6">
 
-
+      <!-- accordian, stats and maps -->
+      <div class='col s12 m9'>
+        <!-- row -->
+          <div class="row">
+            <div class="col s12 m12">
               <ul class="collapsible ">
-                <li class="blue-grey darken-1">
-                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Statistics</div>
-                  <div class="collapsible-body blue-grey darken-1">
-                    <nav class="orange darken-3">
-                      <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center">Worldwide</a>
-                        <ul id="nav-mobile" class="left hide-on-med-and-down">
-                        </ul>
-                      </div>
-                    </nav>
-                    <div class='row'>
-                      <div class='col s3'>
-                        <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
-                      </div>
-                      <div class='col s9'>
-                        <div class='row'>
-                          <div class='col s6'>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Cases</p>
-                                  </div>
-                                  <H3 id="totalCases"> </H3>
-                                </div>
-                              </div>
-                            </div>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Recovered</p>
-                                  </div>
-                                  <H3 id="totalRecovered"> </H3>
-                                </div>
-                              </div>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">trending_up</i>Statistics</div>
+                  <div class="collapsible-body blue-grey darken-1 white-text center">
+
+                    <!-- row -->
+                    <div class="row">
+                        <!-- col global -->
+                        <div class="col m3">
+                          <ul class="collection global-stats">
+                            
+                          </ul>
+                        </div>
+                        
+                        <!-- col dashboard -->
+                        <div class="col m6">
+                          <ul class="collection main-stats">
+                            
+                          </ul>
+                        </div>
+
+                        <!-- col usa, state, county stats -->
+                        <div class="col m3">
+                          <!-- row -->
+                          <div class="row">
+                            <!-- usa -->
+                            <div class="col m12">
+                              <ul class="collection usa-stats">
+                                <li class="collection-item active"></li>
+                                <li class="collection-item deaths"></li>
+                                <li class="collection-item confirmed"></li>
+                              </ul>
                             </div>
 
-                          </div>
-                          <div class='col s6'>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Deaths</p>
-                                  </div>
-                                  <H3 id="totalDeaths"> </H3>
-                                </div>
-                              </div>
+                            <!-- state -->
+                            <div class="col m12">
+                              <ul class="collection state-stats">
+                                <li class="collection-item active"></li>
+                                <li class="collection-item deaths"></li>
+                                <li class="collection-item confirmed"></li>
+                              </ul>
                             </div>
-                            <div class='row'>
-                              <div class='row'>
-                                <div class="col s12">
-                                  <div class="card-content white-text">
-                                    <div class="card orange darken-1 lighten-4">
-                                      <p class="card-title  white-text">Total Active </p>
-                                    </div>
-                                    <H3 id="totalActive"> </H3>
-                                  </div>
-                                </div>
-                              </div>
 
+                            <!-- county -->
+                            <div class="col m12">
+                              <ul class="collection county-stats">
+                                <li class="collection-item active"></li>
+                                <li class="collection-item deaths"></li>
+                                <li class="collection-item confirmed"></li>
+                              </ul>
                             </div>
+
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <nav class="orange darken-3">
-                      <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center">Statewide</a>
-                        <ul id="nav-mobile" class="left hide-on-med-and-down">
-                        </ul>
-                      </div>
-                    </nav>
-                    <div class='row'>
-                      <div class='col s3'>
-                        <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
-                      </div>
-                      <div class='col s9'>
-                        <div class='row'>
-                          <div class='col s6'>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Cases</p>
-                                  </div>
-                                  <H3 id="totalCasesState"> </H3>
-                                </div>
-                              </div>
-                            </div>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Recovered</p>
-                                  </div>
-                                  <H3 id="totalRecoveredState"> </H3>
-                                </div>
-                              </div>
-                            </div>
 
-                          </div>
-                          <div class='col s6'>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Deaths</p>
-                                  </div>
-                                  <H3 id="totalDeathsState"> </H3>
-                                </div>
-                              </div>
-                            </div>
-                            <div class='row'>
-                              <div class='row'>
-                                <div class="col s12">
-                                  <div class="card-content white-text">
-                                    <div class="card orange darken-1 lighten-4">
-                                      <p class="card-title  white-text">Total Active </p>
-                                    </div>
-                                    <H3 id="totalActiveState"> </H3>
-                                  </div>
-                                </div>
-                              </div>
+                        <!-- chart -->
+                        <div class="col chart-container"></div>
 
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
 
-                    <nav class="orange darken-3">
-                      <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center">Local</a>
-                        <ul id="nav-mobile" class="left hide-on-med-and-down">
-                        </ul>
-                      </div>
-                    </nav>
-                    <div class='row'>
-                      <div class='col s3'>
-                        <img class="materialboxed" width="250" src="./Assets/images/corona19.jpg">
-                      </div>
-                      <div class='col s9'>
-                        <div class='row'>
-                          <div class='col s6'>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Cases</p>
-                                  </div>
-                                  <H3 id="totalCasesLocal"> </H3>
-                                </div>
-                              </div>
-                            </div>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Recovered</p>
-                                  </div>
-                                  <H3 id="totalRecoveredLocal"> </H3>
-                                </div>
-                              </div>
-                            </div>
+                      
 
-                          </div>
-                          <div class='col s6'>
-                            <div class='row'>
-                              <div class="col s12">
-                                <div class="card-content white-text">
-                                  <div class="card orange darken-1 lighten-4">
-                                    <p class="card-title  white-text">Total Deaths</p>
-                                  </div>
-                                  <H3 id="totalDeathsLocal"> </H3>
-                                </div>
-                              </div>
-                            </div>
-                            <div class='row'>
-                              <div class='row'>
-                                <div class="col s12">
-                                  <div class="card-content white-text">
-                                    <div class="card orange darken-1 lighten-4">
-                                      <p class="card-title  white-text">Total Active </p>
-                                    </div>
-                                    <H3 id="totalActiveLocal"> </H3>
-                                  </div>
-                                </div>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                 </li>
 
@@ -306,11 +182,10 @@
                     <span>Lorem ipsum dolor sit amet.</span>
                   </div>
                 </li>
+
               </ul>
             </div>
           </div>
-
-        </div>
       </div>
 
     </div>
