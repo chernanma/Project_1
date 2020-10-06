@@ -1,6 +1,6 @@
 # Covid-19 Test Sites & Stats
 
-<------ABOUT APP HERE-------->
+<------This covid tracker application delivers the current covid updates and statistics nationwide. The User can search for any city and view the instantaneous status and trends pertaining to covid 19.-------->
 
 [Click here to go to Covid-19 Stats Site](https://chernanma.github.io/Project_1/)
 
@@ -15,7 +15,7 @@
 ---
 ## Description
  
-<-------DESCRIPTION OF THE PROJECT HERE ------>
+<-------The purpose of this project is to create a web page that enables users to gather critical information, aid, and assist the general public with awareness as we are all faced with these unprecedented circumstances of a global pandemic.------>
 
 ##### Technologies
 
@@ -74,7 +74,7 @@ function nytCovidStats() {
 ---
 ## How To Use
 
-<---- how to use HERE --------> 
+<---- The User will enter a specific location which will display all nearby testing locations in that area. Users can also view directions and testing sites via map and gps intergrated by developers. The current statistics can also be displayed with a "click of the finger" function that displays current data and trends provided by API's.--------> 
 
 ## Screenshots
 
