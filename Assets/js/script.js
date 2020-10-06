@@ -82,11 +82,10 @@ function stateData(state) {
    
     console.log(state);
     console.log(state.confirmed);
-    $('#totalCasesState').text(state.confirmed);
-    $('#totalRecoveredState').text(state.recovered);
-    $('#totalDeathsState').text(state.deaths);
-    $('#totalActiveState').text(state.active);
-
+    $('ul.state-stats').children('.active-case').text(state.confirmed);
+    $('ul.state-stats').children('.deaths').text(state.recovered);
+    $('ul.state-stats').children('.confirmed').text(state.deaths);
+   
 }
 
 /**
