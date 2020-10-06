@@ -33,7 +33,7 @@
 
 ```js
 * returns the province data for USA regions
- */
+ *
 function provinces() {
     // query url
     let queryUrl = COVID_STATS_ENDPOINTS.provinces;
@@ -126,7 +126,7 @@ function nytCovidStats() {
 - Statistics Tab 
 ![picture](assets/images/currentWeather.png)
 - Map Tab
-![picture](assets/images/forecast.png)
+![picture](assets/images/map.png)
 
 [Back To The Top](#Covid-19-Test-Sites-&-stats)
 ---
