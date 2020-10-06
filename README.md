@@ -1,6 +1,6 @@
 # Covid-19 Test Sites & Stats
 
-<------This covid tracker application delivers the current covid updates and statistics nationwide. The User can search for any city and view the instantaneous status and trends pertaining to covid 19.-------->
+<------This covid tracker application delivers the current covid19 updates and statistics nationwide. The User can search for any city and view instantaneous status and trends pertaining to covid.-------->
 
 [Click here to go to Covid-19 Stats Site](https://chernanma.github.io/Project_1/)
 
@@ -104,5 +104,6 @@ Copyright (c) [2020] International Team
 ---
 ## Author Info
 - Linkedin -- [Cesar Martinez](https://www.linkedin.com/in/cesar-martinez-3986b3120/)
+-Linkedin -- [Adrian Storr] (https://www.linkedin.com/in/adrian-storr-98773731)
 
 [Back To The Top](#Covid-19-Test-Sites-&-stats)
