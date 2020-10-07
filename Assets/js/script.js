@@ -82,9 +82,9 @@ function stateData(state) {
    
     console.log(state);
     console.log(state.confirmed);
-    $('.usa-stats').children('.active-case').text(state.confirmed);
-    $('.usa-stats').children('.deaths').text(state.recovered);
-    $('.usa-stats').children('.confirmed').text(state.deaths);
+    $('.state-stats').children('.active-case').text(state.confirmed);
+    $('.state-stats').children('.deaths').text(state.recovered);
+    $('.state-stats').children('.confirmed').text(state.deaths);
    
 }
 
@@ -107,7 +107,7 @@ function stateData(state) {
  *      }
  */
 function worldData(world) {
-    // // console.log(world);
+    console.log(world);
     $('#totalCases').text(world.confirmed);
     $('#totalRecovered').text(world.recovered);
     $('#totalDeaths').text(world.deaths);
@@ -225,7 +225,7 @@ function worldWide() {
 
     // ajax request
     $.ajax(URL).then(function(response){
-        // // console.log(response.data);
+        console.log(response.data);
         worldData(response.data);
     });
 
@@ -389,11 +389,54 @@ function callLocationAPI(cityName,Long,Lati){
     });
 
 }
-// $(document).ready(function(){
-//     $('.collapsible').collapsible();
-// });
-//callLocationAPI();
 
+
+/** 
+* 
+*              NARRATIVA - COVID-19 TRACKING PROJECT
+*  
+* Collects information from different data sources to provide comprehensive 
+* data for the novel coronavirus, SARS-CoV-2.
+
+* website -https://covid19tracking.narrativa.com/index_en.html
+* End point: https://api.covid19tracking.narrativa.com/api/
+* Example: https://api.covid19tracking.narrativa.com/api/2020-03-10
+
+*/ 
+
+// Funtion to Pull data from Narrrativa API for Total cases by country and generate a collapsable list
+function casesByCountry (){
+
+    var endPoint = 'https://api.covid19tracking.narrativa.com/api/'
+    var specificDay = new Date();
+
+    var month = specificDay.getMonth()+1;
+    var day = specificDay.getDate();
+
+    var outputdate = specificDay.getFullYear() + '-' +
+        (month<10 ? '0' : '') + month + '-' +
+        (day<10 ? '0' : '') + day;
+    console.log(outputdate);     
+    var queryCountriesUrl = endPoint + outputdate;      
+    console.log(queryCountriesUrl);
+    // making request to pull all covid data by countries
+    $.ajax({
+        url: queryCountriesUrl,
+        method: "GET"        
+    }).then(function(response){
+    console.log(response.dates[outputdate].countries);
+        for(var i in response.dates[outputdate].countries){
+            var liCountries= $('<li>');   
+            var spancases=$('<span>');   
+            spancases.attr('class','red-text text-darken-3');
+            spancases.text('     '+ response.dates[outputdate].countries[i].today_confirmed);  
+            liCountries.text(response.dates[outputdate].countries[i].name+':  '); 
+            liCountries.append(spancases);              
+            $('#LiCountries').append(liCountries);
+        };      
+        
+    });
+}
 
 // Function to pull city info base on user input
 function getCityInfo(){
@@ -531,3 +574,4 @@ $('#autopopu').on('click', function(event){
 $('#autopopu').focusout(function(){
 });
 
+casesByCountry ();
