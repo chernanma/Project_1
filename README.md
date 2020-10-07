@@ -24,9 +24,13 @@ The purpose of this project is to create a web page that enables users to gather
 - Visual Studio Code
 - Materialized Framework
 - APIs
+    - CORS Solution - https://cors-anywhere.herokuapp.com/
     - COVID-19 Testing Sites Location API - https://developer.here.com/blog/finding-covid-19-testing-sites
+    - County Name  - https://maps.googleapis.com/maps/api/place/autocomplete/json?
     - Google Maps API - https://developers.google.com/maps/documentation/embed
+    - Google Places API - https://maps.googleapis.com/maps/api/place/autocomplete/json?
     - COVID-19 Information and Stats API - https://covid-api.com/api/
+    - COVID-19 Information and Stats API - https://api.covid19tracking.narrativa.com/api/
 
 ##### Code sample - JQuery
 #
