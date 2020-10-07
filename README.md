@@ -4,7 +4,7 @@ This Covid tracker application delivers the current covid19 updates and statisti
 
 [Click here to go to Covid-19 Stats Site](https://chernanma.github.io/Project_1/)
 
-![picture](./Assets/images/webpage.jpg)
+![picture](./Assets/Images/webpage.jpg)
 
 ### Table of Contents
 - [Description](#description)
@@ -122,11 +122,11 @@ function nytCovidStats() {
 ## Screenshots
 
 - Search Input
-![picture](./assets/images/input.jpg)
+![picture](./assets/Images/input.jpg)
 - Statistics Tab 
-![picture](./assets/images/stats.jpg)
+![picture](./assets/Images/stats.jpg)
 - Map Tab
-![picture](./assets/images/mapup.jpg)
+![picture](./assets/Images/mapup.jpg)
 
 [Back To The Top](#Covid-19-Test-Sites-&-stats)
 ---
