@@ -382,7 +382,7 @@ function getCovidStats (region) {
 
 function findLatLong (address) {
     const MAPQUEST_API_KEY = '1AXLjWPBMJWOb33NJl8Jf0dd8cxGbjBx';
-    const MAPQUEST_GEOCODING_API_ENDPOINT = 'http://www.mapquestapi.com/geocoding/v1/address';
+    const MAPQUEST_GEOCODING_API_ENDPOINT = 'https://www.mapquestapi.com/geocoding/v1/address';
     let queryString = `?key=${MAPQUEST_API_KEY}&location=${address}`;
     let queryUrl = MAPQUEST_GEOCODING_API_ENDPOINT + queryString;
     let URL = {
