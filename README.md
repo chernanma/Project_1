@@ -148,5 +148,6 @@ Copyright (c) [2020] International Team
 ## Author Info
 - Linkedin -- [Cesar Martinez](https://www.linkedin.com/in/cesar-martinez-3986b3120/)
 - Linkedin -- [Adrian Storr](https://www.linkedin.com/in/adrian-storr-98773731)
+- Linkedin -- [Amit Karmacharya)(https://www.linkedin.com/in/amit-karmacharya-b344731ab/)
 
 [Back To The Top](#Covid-19-Test-Sites-&-stats)
