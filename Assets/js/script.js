@@ -1,56 +1,167 @@
-// covid stats  variable for us-counties
-let countycity = [];
-
-function nytCovidStats() {  
-    
-
-    // get the file from new york times
-    // us of cors-anywhere server to avoid the cors block
-    let corsUrl = "https://cors-anywhere.herokuapp.com/";
-    let nytUrl = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv";
-    $.ajax({
-        url: corsUrl + nytUrl,
-        method: 'GET'
-    }).then(function(response){
-        // // console.log(response.split('\n'));
-        let table = response.split('\n');
-        // store the keys in an array
-        let tH = table[0].split(',');
-
-        // loop through the rows in the table and extract the data
-        for(let i = 1; i < table.length; i++) {
-            let row = table[i].split(',');
-            // for every row save the data
-            let tempObj = {};
-            for(let i = 0; i < tH.length; i++) {
-                tempObj[tH[i]] = row[i];
-            }
-            window.localStorage.setItem(tempObj.county, JSON.stringify(tempObj));
-        }
-        
-        
-    });
+/**
+ * 
+ * @param {*} world - is an object which stores all the covid information for worl wide cases
+ *  for example, 
+ *  world : {
+ *       active: 9316504
+ *       active_diff: 63261
+ *       confirmed: 33881272
+ *       confirmed_diff: 320191
+ *       date: "2020-09-30"
+ *       deaths: 1012980
+ *       deaths_diff: 6404
+ *       fatality_rate: 0.0299
+ *       last_update: "2020-10-01 04:23:42"
+ *       recovered: 23551788
+ *       recovered_diff: 250526
+ *      }
+ */
+function worldData(world) {
+    // // console.log(world);
+    // console.log(county);
+    let nf = new Intl.NumberFormat(); // converts number in string with comma
+    $('.world-recovered').text(nf.format(world.recovered));
+    $('.world-deaths').text(nf.format(world.deaths));
+    $('.world-confirmed').text(nf.format(world.confirmed));
 }
 
-nytCovidStats();
+/**
+ * 
+ * @param {*} country - is an object returned from the ajax request 
+ */
+function countriesData(countries, today) {
+    
+    for(let i in countries){
+
+        let liCountries = $('<li class=" truncate clearfix">');   
+        let spanCountry = $('<span class="left text-flow truncate">'); 
+        let spanValue = $('<span class="right red-text text-darken-3">')
+
+        spanCountry.text(countries[i].name);
+        spanValue.text(countries[i].today_confirmed)
+
+        liCountries.append(spanCountry);
+        liCountries.append(spanValue);              
+        $('#LiCountries').append(liCountries);
+
+    }; 
+}
 
 /**
- *      
- * @param {*} region - is an object which has a list of usa province/city/county data
- *                   for example,
- *                    region : {
  * 
- *                          provinces : [{
- *                              name: "baltimore city"
- *                              lat: 12.02323
- *                              long: 15.234
- *                              },
- *                              {},{},{}....]
- *                         }
+ * @param {*} data - object with the latest info on usa
+ *      {
+ *           date: ,
+ *          confirmed: ,
+ *         new_confirmed: ,
+ *          deaths: ,
+ *          new_death: ,
+ *           recovered: ,
+ *          new_recovered: 
+ *      }
  */
-function provinceData(region){
-    console.log(region);
+function usaData(usa) {
+    
+    console.log(usa);
+    let nf = new Intl.NumberFormat(); // converts number in string with comma
+    $('.usa-recovered').text(nf.format(usa.recovered));
+
+    console.log(typeof usa.deaths);
+    console.log();
+    let deaths = nf.format(usa.deaths);
+    $('.usa-deaths').text(deaths);
+    $('.usa-confirmed').text(nf.format(usa.confirmed));
+}
+
+/**
+ * @param {*} data - object has historical data for usa.
+ * 
+ * date: 20201006*
+ * deathIncrease: 202675
+ * hospitalizedIncrease: 414461
+ * negativeIncrease: 97932855
+ * onVentilatorCurrently: 1609
+ * pending: 8680
+ * positiveIncrease: 7460634
+ * recovered: 2952390
+ * totalTestResultsIncrease: 110226302
+ */
+function usaHistoricalData(history){
   
+    console.log(history);
+
+    
+    // loop and extract data
+    let dates = [];
+    let dataSet = {
+        deathIncrease: [],
+        positiveIncrease: [],
+        pending: [],
+        totalTestResultsIncrease: [],
+        onVentilatorCurrently: [],
+        negativeIncrease: [],
+        hospitalizedIncrease: []
+    };
+
+    for(let i = 0; i < history.length; i++) {
+        let cObj = history[i]; // current history object
+        // console.log(Object.keys(cObj));
+
+        let date = new Date(cObj.date);
+        date = date.getMonth() + 1 + "/" + date.getDate();
+
+        dates.unshift(date);
+        dataSet['deathIncrease'].unshift(cObj.deathIncrease);
+        dataSet['positiveIncrease'].unshift(cObj.positiveIncrease);
+        dataSet['pending'].unshift(cObj.pending);
+        dataSet['negativeIncrease'].unshift(cObj.negativeIncrease);
+        dataSet['totalTestResultsIncrease'].unshift(cObj.totalTestResultsIncrease);
+        dataSet['onVentilatorCurrently'].unshift(parseInt(cObj.onVentilatorCurrently)/10000)
+        dataSet['hospitalizedIncrease'].unshift(cObj.hospitalizedIncrease);
+        
+    }
+    
+   
+        let keys = Object.keys(dataSet);
+        for(let index in keys) {
+            // canvas
+            var ctx = $('<canvas>').attr('id', 'chart-'+keys[index]);
+            // console.log(ctx);
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: keys[index],
+                        data: dataSet[keys[index]],
+                        borderColor: 'red',
+                        borderWidth: 1
+                    }]
+                },
+                 options : {
+                    tooltipTemplate: "<%= value %>",
+                  
+                    showTooltips: true,
+                  
+                    onAnimationComplete: function() {
+                      this.showTooltip(this.datasets[0].points, true);
+                    },
+                    tooltipEvents: []
+                  }
+            });
+
+            console.log(ctx);
+            if(ctx.attr('id') === 'chart-positiveIncrease'){
+                console.log('inside if')
+                $('.dashboard-chart').append(ctx);
+
+            }
+
+            $('.chart-container').append(ctx);
+        }
+    
+  
+    
 }
 
 /**
@@ -76,52 +187,68 @@ function provinceData(region){
  *                              regionISO: "USA"
  *                              }
  */
-
  ///Display State Stats on main page
-function stateData(state) {
+ function stateData(state) {
    
-    console.log(state);
-    console.log(state.confirmed);
-    $('.state-stats').children('.active-case').text(state.confirmed);
-    $('.state-stats').children('.deaths').text(state.recovered);
-    $('.state-stats').children('.confirmed').text(state.deaths);
+    // console.log(county);
+    let nf = new Intl.NumberFormat(); // converts number in string with comma
+    $('.state-name').text(state.name);
+    $('.state-recovered').text(nf.format(state.recovered));
+    $('.state-deaths').text(nf.format(state.deaths));
+    $('.state-confirmed').text(nf.format(state.confirmed));
    
 }
 
 /**
+ *      
+ * @param {*} region - is an object which has a list of usa province/city/county data
+ *                   for example,
+ *                    region : {
  * 
- * @param {*} world - is an object which stores all the covid information for worl wide cases
- *  for example, 
- *  world : {
- *       active: 9316504
- *       active_diff: 63261
- *       confirmed: 33881272
- *       confirmed_diff: 320191
- *       date: "2020-09-30"
- *       deaths: 1012980
- *       deaths_diff: 6404
- *       fatality_rate: 0.0299
- *       last_update: "2020-10-01 04:23:42"
- *       recovered: 23551788
- *       recovered_diff: 250526
- *      }
+ *                          provinces : [{
+ *                              name: "baltimore city"
+ *                              lat: 12.02323
+ *                              long: 15.234
+ *                              },
+ *                              {},{},{}....]
+ *                         }
  */
-function worldData(world) {
-    console.log(world);
-    $('#totalCases').text(world.confirmed);
-    $('#totalRecovered').text(world.recovered);
-    $('#totalDeaths').text(world.deaths);
-    $('#totalActive').text(world.active);
+function countyData(county){
+    // console.log(county);
+    let nf = new Intl.NumberFormat(); // converts number in string with comma
+    $('.county-name').text(county.name);
+    $('.county-recovered').text(nf.format(county.recovered));
+    $('.county-deaths').text(nf.format(county.deaths));
+    $('.county-confirmed').text(nf.format(county.confirmed));
+  
 }
+
+/** 
+ * @param {*} predictions - is an array, with list of all places matching 
+ *                           the places api ajax request
+ */
+function listOfPlaces(predictions) {
+    
+    var list = [];
+    for(let item in predictions){
+        let place = predictions[item].description;
+        list.push(place);
+    }
+    $('#autopopu').empty();
+    for(let i in list){
+        var $li =$('<li class="collection-item">');
+        $li.text(list[i])
+        $('#autopopu').append($li);
+    }
+    // console.log(list);
+}
+
 
 /** 
  * 
  *  COVID-19 TESTING SITES LOCATION,
  *  Finds the list of sites where testing is available
  *  website - https://developer.here.com/blog/finding-covid-19-testing-sites
- * 
- *  API  EndPoint
- *  example - https://discover.search.hereapi.com/v1/discover?q=Covid&at=30.22,-92.02&limit=10&apikey={{APIKEY}}
  */ 
 
 COVID_LOCATION_APIKEY = "lZLEGOEVL9DV9PZrgak4xPaYgxI8C3gtBlB6hWpY0Js";
@@ -135,62 +262,125 @@ COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover";
 
 COVID_STATS_ENDPOINTS = {
 
-   /**
-    * endpoints 
-    */
-   states: "https://covid-api.com/api/reports?region_province=",
 
-   /**
-    *  endpoint for all region in usa
-    */
-   provinces: "https://covid-api.com/api/provinces/USA",
-   
-    totalCases: "https://covid-api.com/api/reports/total"
+   // county or province
+   county: "https://covid-api.com/api/reports?city_name=",
+   // states usa
+   states: "https://covid-api.com/api/reports?region_province=",
+   // country
+   nation: "https://covid-api.com/api/reports",
+   // world wide 
+   worldWide: "https://covid-api.com/api/reports/total"
   
 }; 
 
 /** 
-* 
-*              GOOGLE MAPS API
-*  
-*         Generate maps for specifict test site near by user's location
-* 
-* 
-* 
+* GOOGLE MAPS API
 */ 
 
-
-//website -https://developers.google.com/maps/documentation/embed
-// TO GET MAP FOR A SPECIFIC TEST SITE  
 GOOGLEAPIKEY = "AIzaSyD4alQSwGW9U2s7IgAqMCMocMmTfbNuJSg";
-// URL for an Maps Embed API request is as follows:
-//  const GOOGLE_MAPS_ENDPOINT = "https://www.google.com/maps/embed/v1/place?key="
-
-// Example : https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Eiffel+Tower,Paris+France
-
-
-
-// https://developers.google.com/maps/documentation/urls
-// TO GET MAP FOR MULIPLES TEST SITES -- ****NO APIKEY NEEDED****  
-// URL for an Maps Embed API request is as follows:
 GOOGLE_MAPS_ENDPOINT = "https://www.google.com/maps/search/?api=1&query="
 
-// Example : https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393,+123+Main+St,MD,20874
+/**  
+ * Call to Location API  
+ */
 
-
-/***  Call to Location API  ***/
-
-//Import API Key and End Point Url from APIKeys js file
+//  Import API Key and End Point Url from APIKeys js file
 //  import {COVID_LOCATION_APIKEY} from './apikeys.js' 
 //  import {COVID_LOCATION_ENDPOINT} from './apikeys.js' 
-
-//https://discover.search.hereapi.com/v1/discover?q=Covid+Rockville&at=39.08,-77.15&limit=10&apikey=lZLEGOEVL9DV9PZrgak4xPaYgxI8C3gtBlB6hWpY0Js
+//  https://discover.search.hereapi.com/v1/discover?q=Covid+Rockville&at=39.08,-77.15&limit=10&apikey=lZLEGOEVL9DV9PZrgak4xPaYgxI8C3gtBlB6hWpY0Js
 
 var Lat;
 var Lon;
 var position;
+var userInput;
 
-function findLatLong(address) {
+function getCovidStats (region) {
+
+    let specificDay = new Date();
+        let month = specificDay.getMonth()+1;
+        let day = specificDay.getDate();
+        let today = specificDay.getFullYear() + '-' +
+        (month < 10 ? '0' : '') + month + '-' +
+        (day < 10 ? '0' : '') + day;
+
+    let queryUrl = `https://api.covid19tracking.narrativa.com/api/${today}/country/us/region/${region.state}/sub_region/${region.county}`;
+    // ajax request
+    $.ajax({
+        url: queryUrl,
+        method: 'GET'
+    }).then(function(response){
+
+        console.log(response);
+        let world = response.total;
+        let usa = response.dates[today].countries.US;
+        let state = usa.regions[0];
+        let county = state.sub_regions[0];
+
+        let wData = {
+            name: world.name,
+            date: world.date,
+            confirmed: world.today_confirmed,
+            new_confirmed: world.today_new_confirmed,
+            deaths: world.today_deaths,
+            new_death: world.today_new_deaths,
+            recovered: world.today_recovered,
+            new_recovered: world.today_new_recovered
+        };
+
+        // console.log(wData);
+        worldData(wData);
+
+        let usData = {
+            name: usa.name,
+            date: usa.date,
+            confirmed: usa.today_confirmed,
+            new_confirmed: usa.today_new_confirmed,
+            deaths: usa.today_deaths,
+            new_death: usa.today_new_deaths,
+            recovered: usa.today_recovered,
+            new_recovered: usa.today_new_recovered
+        };
+
+        getUsaHistoricalData();
+        console.log(usData);
+        usaData(usData);
+
+
+        let sData = {
+            name: state.name,
+            date: state.date,
+            confirmed: state.today_confirmed,
+            new_confirmed: state.today_new_confirmed,
+            deaths: state.today_deaths,
+            new_death: state.today_new_deaths,
+            recovered: state.today_recovered,
+            new_recovered: state.today_new_recovered
+        };
+
+        // console.log(sData)
+        stateData(sData);
+
+        let cData = {
+            name: county.name,
+            date: county.date,
+            confirmed: county.today_confirmed,
+            new_confirmed: county.today_new_confirmed,
+            deaths: county.today_deaths,
+            new_death: county.today_new_deaths,
+            recovered: county.today_recovered,
+            new_recovered: county.today_new_recovered
+        };
+
+        // console.log(cData);
+        countyData(cData)
+        
+
+    });
+    
+}
+
+function findLatLong (address) {
     const MAPQUEST_API_KEY = '1AXLjWPBMJWOb33NJl8Jf0dd8cxGbjBx';
     const MAPQUEST_GEOCODING_API_ENDPOINT = 'http://www.mapquestapi.com/geocoding/v1/address';
     let queryString = `?key=${MAPQUEST_API_KEY}&location=${address}`;
@@ -201,310 +391,196 @@ function findLatLong(address) {
     };
     // ajax request
     $.ajax(URL).then(function(response){
-        // // console.log(response)
+        // console.log(response)
         let coords = response.results[0].locations[0].latLng;
-        console.log(coords);
-        console.log(userInput);
+        // find test sites
         callLocationAPI(userInput,coords.lng,coords.lat);
-        
+        // find county name
+        findCountyName(coords);
     });
 }
 
-/**
- *  returns world wide covid stats
- */
-function worldWide() {
-
-    // query url
-    let queryUrl = COVID_STATS_ENDPOINTS.totalCases;
-    // url object
-    let URL = {
-        url: queryUrl,
-        method: 'GET'
-    };
-
+/** */
+function getUsaHistoricalData (){
     // ajax request
-    $.ajax(URL).then(function(response){
-        console.log(response.data);
-        worldData(response.data);
-    });
-
-}
-
-/**
- * returns world wide covid stats
- */
-function state(stateName) {
-
-    console.log(stateName);
-    // query url
-    let queryUrl = COVID_STATS_ENDPOINTS.states + stateName;
-    // url object
-    let URL = {
-        url: queryUrl,
+    $.ajax({
+        url: 'https://api.covidtracking.com/v1/us/daily.json',
         method: 'GET'
-    };
+    }).then(function(response) {
 
-    // ajax request
-    $.ajax(URL).done(function(response){
+        console.log(response);
 
-
-        // console.log(response);
-        // stores formatted data for states
-        let state = {};
-
-        let data = response.data[0];
-        // console.log(data);
-
-        for(let keys in data){
-            // console.log(keys);
-            if(keys === "region"){
-                // key is an object , save all the keys in side region object
-                for(let k in data[keys]) {
-
-                    if(k === "cities") {
-                        continue;
-                    } else if(k === "province") {
-                        state['name'] = data[keys][k];
-                    } else if(k === "name") {
-                        state['region'] = data[keys][k];
-                    } else if (k ==="iso") {
-                        state['regionISO'] = data[keys][k]; 
-                    } else {
-                        // gets the keys and value from data[keys] object
-                        state[k] = data[keys][k];
-                    }
-                }
-            } else { 
-                state[keys] = data[keys];
+        let data = [];
+        for(let i = 0; i < 14; i ++){
+            let currentData = response[i];
+            let tempObj = {};
+            cDate = currentData.date.toString();
+            // date
+            tempObj['date'] = `${cDate.substring(0,4)},${cDate.substring(4,6)},${cDate.substring(6,8)}`;
+            // death
+            tempObj['deathIncrease'] = currentData.deathIncrease;
+            // hospitalized
+            tempObj['hospitalizedIncrease'] = currentData.hospitalizedIncrease;
+            // on ventilator
+            tempObj['onVentilatorCurrently'] = currentData.onVentilatorCurrently
+            // positiveIncrease
+            tempObj['positiveIncrease'] = currentData.positiveIncrease;
+            // negativeIncrease
+            tempObj['negativeIncrease'] = currentData.negativeIncrease;
+            // recovered
+            tempObj['recovered'] = currentData.recovered;
+            // total test Results
+            tempObj['totalTestResultsIncrease'] = currentData.totalTestResultsIncrease;
+            // pending
+            tempObj['pending'] = currentData.pending;
+            
+            if(i === 0) {
+                // latest data for usa
+                // usaData(tempObj);
             }
+            data.push(tempObj);
         }
+        console.log(data);
+        usaHistoricalData(data);
+    });
+}
 
-        // console.log(state);
+/** 
+* 
+* NARRATIVA - COVID-19 TRACKING PROJECT
+*
+* Collects information from different data sources to provide comprehensive 
+* data for the novel coronavirus, SARS-CoV-2.
+* website -https://covid19tracking.narrativa.com/index_en.html
+* End point: https://api.covid19tracking.narrativa.com/api/
+* Example: https://api.covid19tracking.narrativa.com/api/2020-03-10
+* 
+*/
+// Funtion to Pull data from Narrrativa API for Total cases by country and generate a collapsable list
+function casesByCountry (){
 
-        
-        // pass the information to stateData
-        stateData(state)
-       
-        return true;
-    })
-    .fail(function() {
-        return false;
-      })
-    ;
+    let specificDay = new Date();
+    let month = specificDay.getMonth()+1;
+    let day = specificDay.getDate();
+    let today = specificDay.getFullYear() + '-' +
+        (month < 10 ? '0' : '') + month + '-' +
+        (day < 10 ? '0' : '') + day;
 
+    let endPoint = 'https://api.covid19tracking.narrativa.com/api/' 
+    let queryCountriesUrl = endPoint + today;      
+    // making request to pull all covid data by countries
+    $.ajax({
+        url: queryCountriesUrl,
+        method: "GET"        
+    }).then(function(response){
+        // console.log(response);
+        countriesData(response.dates[today].countries , today);
+             
+    });
 }
 
 /**
- * returns the province data for USA regions
+ *  finds county name
  */
-function provinces() {
-    // query url
-    let queryUrl = COVID_STATS_ENDPOINTS.provinces;
-    // url object
-    let URL = {
+function findCountyName(coords){
+
+    // debug
+    console.log('Ajax request: Find the County name');
+
+    let queryUrl = `https://geo.fcc.gov/api/census/block/find?latitude=${coords.lat}&longitude=${coords.lng}&format=json`;
+    // ajax
+    $.ajax({
         url: queryUrl,
         method: 'GET'
-    };
+    }).then(function(response){
+        // console.log(response.County);
+        let countyName = response.County.name;
+        if(countyName) {
+            // console.log(response);
 
-    // ajax request
-    $.ajax(URL).then(function(response){
-        // console.log(response);
-        // stores province data
-        let usa = {
-            provinces: []
-        };
-        // console.log(response.data);
-        for(let i = 0; i < response.data.length; i++) {
-            // obj
-            let obj = response.data[i];
-            // temp obj
-            usa.provinces.push({
-                name: obj.province,
-                lat: obj.lat,
-                long: obj.long
+            // gets covid stats for usa, state and county based on the countyname
+            getCovidStats({
+                county: countyName,
+                state: response.State.name
             });
         }
-
-        // view method displays provinces stats
-        // usa is an object which has list of all provinces
-        provinceData(usa);
-
     });
-
 
 }
 
 // Function to call Locationn API 
 function callLocationAPI(cityName,Long,Lati){
 
+    // debug
+    console.log("Ajax request : Test Site Location");
+
+
     var apiKeyLocation = COVID_LOCATION_APIKEY;
-    // var Lon = Long;
-    // var Lat = Lati;
+
     var queryWords ='Covid'+'+'+cityName;   
     queryWords= queryWords.replace(/ /g, "+");
     ueryWords= queryWords.replace(/,/g,"" );
-    console.log(queryWords);
+    
     var queryUrlLocation = COVID_LOCATION_ENDPOINT+'?q=Covid&at='+Lati+','+Long+'&limit=10&apikey='+apiKeyLocation;
-    console.log(queryUrlLocation);
+    
     // making request to Locations API
     $.ajax({
         url: queryUrlLocation,
         method: "GET"        
     }).then(function(response){
-    // console.log(response.items.length);
-    //Generating List of locations automatically DOM manipulation
-    for (var i = 0;i<response.items.length;i++){
-        // console.log(response.items[i]);     
-        
-         var liLocations = $('<li>');
-        var divHeaderLoc = $('<div>');
-        var divBodyLoc=$('<div>');
-        var iHeaderLoc =$('<i>');
-        var spanLoc=$('<span>');
-        liLocations.attr('id', 'site-location');
-        liLocations.attr('data-site',response.items[i].title);
-        divHeaderLoc.attr('class','collapsible-header active');
-        iHeaderLoc.attr('class','material-icons');
-        divBodyLoc.attr('class','collapsible-body blue-grey lighten-4'); 
-        var locShortName= response.items[i].title;   
-        locShortName= locShortName.replace('Covid-19 Testing Site: ','');         
-        spanLoc.text(response.items[i].address.label);        
-        divBodyLoc.append(spanLoc);
-        // console.log(response);
-        // console.log(response.items[i].contacts);                    
-        divHeaderLoc.text(locShortName);
-        iHeaderLoc.text('place');        
-        divHeaderLoc.append(iHeaderLoc);        
-        liLocations.append(divHeaderLoc);
-        liLocations.append(divBodyLoc);        
-        $('#LiLocations').append(liLocations); 
 
-    }
+        for (var i = 0;i<response.items.length;i++){
+            // console.log(response.items[i]);     
+            
+            var liLocations = $('<li>');
+            var divHeaderLoc = $('<div>');
+            var divBodyLoc=$('<div>');
+            var iHeaderLoc =$('<i>');
+            var spanLoc=$('<span>');
+            
+
+            liLocations.attr('id', 'site-location');
+            liLocations.attr('data-site',response.items[i].title);
+            divHeaderLoc.attr('class','collapsible-header active');
+            iHeaderLoc.attr('class','material-icons');
+            divBodyLoc.attr('class','collapsible-body blue-grey lighten-4'); 
+              
+            var locShortName= response.items[i].title; 
+            locShortName = locShortName.replace('Covid-19 Testing Site: ','');         
+            spanLoc.text(response.items[i].address.label);        
+            divBodyLoc.append(spanLoc);
+                               
+            
+            divHeaderLoc.text(locShortName);
+            iHeaderLoc.text('place'); 
+            divHeaderLoc.append(iHeaderLoc); 
+
+            liLocations.append(divHeaderLoc);
+            liLocations.append(divBodyLoc);   
+
+            $('#LiLocations').append(liLocations); 
+
+        }
    
-    $(document).ready(function(){
-        $('.collapsible').collapsible();
-      });
+        $(document).ready(function(){
+            $('.collapsible').collapsible();
+        });
 
     });
 
-}
-
-
-/** 
-* 
-*              NARRATIVA - COVID-19 TRACKING PROJECT
-*  
-* Collects information from different data sources to provide comprehensive 
-* data for the novel coronavirus, SARS-CoV-2.
-
-* website -https://covid19tracking.narrativa.com/index_en.html
-* End point: https://api.covid19tracking.narrativa.com/api/
-* Example: https://api.covid19tracking.narrativa.com/api/2020-03-10
-
-*/ 
-
-// Funtion to Pull data from Narrrativa API for Total cases by country and generate a collapsable list
-function casesByCountry (){
-
-    var endPoint = 'https://api.covid19tracking.narrativa.com/api/'
-    var specificDay = new Date();
-
-    var month = specificDay.getMonth()+1;
-    var day = specificDay.getDate();
-
-    var outputdate = specificDay.getFullYear() + '-' +
-        (month<10 ? '0' : '') + month + '-' +
-        (day<10 ? '0' : '') + day;
-    console.log(outputdate);     
-    var queryCountriesUrl = endPoint + outputdate;      
-    console.log(queryCountriesUrl);
-    // making request to pull all covid data by countries
-    $.ajax({
-        url: queryCountriesUrl,
-        method: "GET"        
-    }).then(function(response){
-    console.log(response.dates[outputdate].countries);
-        for(var i in response.dates[outputdate].countries){
-            var liCountries= $('<li>');   
-            var spancases=$('<span>');   
-            spancases.attr('class','red-text text-darken-3');
-            spancases.text('     '+ response.dates[outputdate].countries[i].today_confirmed);  
-            liCountries.text(response.dates[outputdate].countries[i].name+':  '); 
-            liCountries.append(spancases);              
-            $('#LiCountries').append(liCountries);
-        };      
-        
-    });
 }
 
 // Function to pull city info base on user input
 function getCityInfo(){
 
-return [lon,lat];
+    return [lon,lat];
 
 }
-
-
-var userInput;
-
-//Click event on Search button
-$('#searchIcon').on('click',function(){
-
-// Clearing List of locations for every search
-$('#LiLocations').empty();    
-//let cityPosition = getCityInfo();
-//var Lon = cityPosition[0];
-//var Lat = cityPosition[1];
-userInput = $('#search').val();
-// console.log(userInput);
-// console.log(state(userInput));
-if (state(userInput)){  
-    alert('WOW');
-}else{
-    var cityCounty = JSON.stringify(localStorage.getItem(userInput));
-    
-    //console.log(typeof(cityCounty));
-    //console.log(cityCounty);
-
-    findLatLong(userInput);
-    // console.log(position);
-}
-
-
-// HERE CALL TO WORLDWIDE STATS API 
-worldWide();
-
-
-
-
-
-});
 
 var locationName;
 var locName;
 
-//Load map when click on location from Locatin list
-$("#LiLocations").on('click',function(event){
-    console.log(event.target);
-    console.log($(event.target).parents('#site-location').attr('data-site'));
-    locationName = $(event.target).parents('#site-location').attr('data-site');
-    locName= locationName.replace('Covid-19 Testing Site: ','');
-    locName= locName.replace(/ /g, "+");
-    locName= locName.replace(/,/g,"" );
-    console.log(locName);
-   
-    //Pullin data from google maps API 
-    var queryUrl = 'https://www.google.com/maps/embed/v1/place?key='+GOOGLEAPIKEY+'&q='+locName;
-    console.log(queryUrl);
-    //Setting src into Iframe in maing page to display MAP
-    $('#map').attr('src',queryUrl);
-});
-
-
-
 /**
- * 
  * @param {*} searchInput - string, ajax request to get the list of possible address matching the string
  */
 function searchAutoComplete(searchInput) {
@@ -526,52 +602,105 @@ function searchAutoComplete(searchInput) {
         listOfPlaces(response.predictions);
     });
 }
-/** 
- *
- * @param {*} autoComplete - is an array, with list of all places matching the places api ajax request
- */
 
-function listOfPlaces(predictions) {
-    var list = [];
-    // console.log(predictions);
-    for(let item in predictions){
-        let place = predictions[item].description;
-        // liPop.text(places);
-        // $('#autopop').append(liPop);
-        list.push(place);
-        // // console.log(predictions[item].description);
-    }
-    $('#autopopu').empty();
-    for(let i in list){
-        var $li =$('<li class="collection-item">');
-        // $li.on('click', placesLiEventHandler);
-        $li.text(list[i])
-        $('#autopopu').append($li);
-    }
-    // console.log(list);
-}
-
-$("#search").keydown(function() {
+$("#search").keydown(function(event) {
     // count the number of text
     let $this = $(this);
     let input = $this.val();
-    searchAutoComplete(input);    
-});
 
-$('.autocomplete-wrapper').on('focusout',function(){
-    $('#autopopu').slideUp(100);
-});
+    searchAutoComplete(input);
+
+    let code = (event.keyCode ? event.keyCode : event.which);
+    if(code == 13) { //Enter keycode
+        
+        let topLi  = $('#autopopu').children()[0];
+        let topAddress = $(topLi).text();
+        // console.log($topLi);
+        if(topAddress) {
+            $('#search').val(topAddress);
+        }
+        $('#searchInputForm').submit();
+    }
+
+    if(code == 9) {
+        event.preventDefault();
+        let topLi  = $('#autopopu').children()[0];
+        let topAddress = $(topLi).text();
+        if(topAddress) {
+            $('#search').val(topAddress);
+        }
+    }
+
+})
 
 $('#autopopu').on('click', function(event){
-    let address = $(event.target).text();
-    // console.log(address);
-    $('#search').val(address);
-    $(this).empty();
-    userInput = address;
-    findLatLong(address);
+
+    // debug
+    console.log("Clicked on the auto complete list element")
+    $('#search').val($(event.target).text());
+    submitForm();
+
 });
 
-$('#autopopu').focusout(function(){
+$('#searchInputForm').on('submit',function(event){
+    event.preventDefault();
+    submitForm();
 });
 
-casesByCountry ();
+$("#LiLocations").on('click',function(event){
+    // debug
+    console.log("click on the test locaation list element");
+
+    // console.log(event.target);
+    // console.log($(event.target).parents('#site-location').attr('data-site'));
+    locationName = $(event.target).parents('#site-location').attr('data-site');
+    locName = locationName.replace('Covid-19 Testing Site: ','');
+    locName = locName.replace(/ /g, "+");
+    locName = locName.replace(/,/g,"");
+
+    // Pullin data from google maps API 
+    var queryUrl = 'https://www.google.com/maps/embed/v1/place?key='+GOOGLEAPIKEY+'&q='+locName;
+
+    //Setting src into Iframe in maing page to display MAP
+    $('#map').attr('src',queryUrl);
+
+});
+
+$('#searchIcon').on('click', function(){
+
+    // debug
+    console.log('Click on the search icon');
+    $('#searchInputForm').submit();
+});
+
+// initialize the app
+(function() {
+
+    
+    casesByCountry();
+    findLatLong('Baltimore city');
+
+    // size of the dashboard
+    $('.LiCountries').attr('style', 'height: 100px; overflow: auto;');
+
+})();
+
+/**
+ * call back function for form submit
+ * 
+ * @param {} event - form event  
+ */
+function submitForm(){ 
+
+     // debug
+     console.log('Triggered Form Submit');
+    
+     $('#search').val();
+     $('#autopopu').empty();
+     $('#LiLocations').empty();
+ 
+     let address = $("#search").val();
+     userInput = address;
+     findLatLong(address)
+
+}
