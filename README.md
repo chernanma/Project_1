@@ -117,7 +117,7 @@ function nytCovidStats() {
 ---
 ## How To Use
 
- The User will enter a specific location which will display all nearby testing locations for Covid-19 in that area. Users can also view directions and testing sites via map and gps intergrated by developers. The current statistics can also be displayed with a "click of the finger" function that captures current analytical data and trends provided by API's. 
+ The User will enter a specific location which will display all nearby testing locations for Covid-19 in that area. Users can also view directions and testing sites via map and gps intergrated by developers. The current statistics can also be displayed with a "click of the finger function", that captures current analytical data and trends provided by API's. 
 
 ## Screenshots
 
