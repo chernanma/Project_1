@@ -1,9 +1,96 @@
 
 
-.collection-item:hover {
-    background-color:#468169;
-    color: white;
-    cursor: pointer;
-}
 
 
+
+    body {
+        background-color: #f5f5f5;
+      }
+  
+      .map {
+        overflow: auto;
+        height: 450px;
+        width: 100%;
+      }
+  
+      .pt-1 {
+        padding-top: 1rem;
+      }
+  
+      .mt-1 {
+        margin-top: 1rem;
+      }
+  
+      .collection-item {
+        color: black;
+      }
+  
+      .covid-dashboard .collection-item {
+        padding: 0 5px 0 5px !important;
+        font-size: 14px;
+        /* background-color: #f5f5f5; */
+
+      }
+  
+      #top-address-placeholder {
+        position: absolute;
+        color:rgb(194, 187, 187);
+        z-index: -99;
+        top: 0;
+        left: 0;
+      }
+  
+      #autopopu {
+        margin-top: -1rem;
+      }
+  
+      #autopopu .collection-item:hover {
+        background-color:#468169;
+        color: white;
+        cursor: pointer;
+      }
+  
+      .collapsible-body {
+        padding: 0 !important;
+      }
+  
+      .collapsible-body > span {
+        padding: 1rem !important;
+        display: inline-block;
+      }
+      
+      #LiCountries {
+        max-height: 400px;
+        overflow-x: none;
+        overflow-y: auto;
+        color: black;
+        background-color: white;
+        padding: 0 .25rem;
+      }
+  
+      #LiCountries li {
+        border-bottom: 1px solid rgb(194, 187, 187);
+        font-size: 14px;    
+      }
+  
+      .scroller {
+        width: auto;
+        height: 550px;
+        overflow-y: scroll;
+        scrollbar-color: rebeccapurple green;
+        scrollbar-width: thin;
+      }
+  
+      .prefix {
+        right: 0;
+      }
+  
+      .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+  
+      .rounded {
+        border-radius: 2%;
+      }
