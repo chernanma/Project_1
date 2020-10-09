@@ -90,7 +90,6 @@ $('#searchIcon').on('click', function(){
 
 /**
  * call back function for form submit
- * 
  */
 function submitForm(){ 
 

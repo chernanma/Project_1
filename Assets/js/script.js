@@ -12,7 +12,6 @@ COVID_LOCATION_ENDPOINT = "https://discover.search.hereapi.com/v1/discover";
 /** 
 * GOOGLE MAPS API
 */ 
-
 GOOGLEAPIKEY = "AIzaSyD4alQSwGW9U2s7IgAqMCMocMmTfbNuJSg";
 GOOGLE_MAPS_ENDPOINT = "https://www.google.com/maps/search/?api=1&query="
 

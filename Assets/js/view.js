@@ -168,7 +168,6 @@ function usaHistoricalData(history){
 }
 
 /**
- * 
  * @param {*} state - state is an object that storest the covid stats for a paticular state
  *                      for example, 
  *                      state: {
