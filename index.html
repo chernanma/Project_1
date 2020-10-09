@@ -3,15 +3,19 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <title>Covid-19 Test Site Finder and Stats Info</title>
-  <!-- CSS  -->
+
+  <!-- CSS icon materialize -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <!-- materialize css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  <!-- chartjs.org -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+  
+  <!-- site css -->
   <link rel="stylesheet" href="./Assets/css/style.css">
+
+  <!-- website Title -->
+  <title>Covid-19 Test Site Finder and Stats Info</title>
+
 </head>
 <body>
   <!-- header -->
@@ -82,8 +86,9 @@
                         </div>
                         <!-- col dashboard -->
                         <div class="col s12 m6">
-                          <!-- county -->
-                            <ul class="rounded collection z-depth-3">
+                          <div class="row">
+                            <!-- county -->
+                            <ul class="col s12 m12 rounded collection z-depth-3">
                               <!-- heading -->
                               <li class="collection-item">
                                 <h3 class="county-name"></h3>
@@ -104,8 +109,11 @@
                                 <span class="county-deaths right"></span>
                               </li>
                             </ul>
-                            <div class="col dashboard-chart">
+                            <div class="col s12 m12 dashboard-chart">
                             </div>
+                          </div>
+                          
+                           
                         </div>
                         <!-- col usa, state, county stats -->
                         <div class="col s12 m3">
@@ -205,8 +213,18 @@
       </div>
     </div>
   </main>
-  <footer class=""></footer>
+
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <!-- materialize js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <!-- chartjs.org -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+  <!-- site js - DOM manipulation -->
   <script src="./Assets/js/view.js"></script>
+  <!-- site js - Controller/Ajax requests -->
   <script src="./Assets/js/script.js"></script>
+  <!-- site js - event handlers -->
+  <script src="./Assets/js/eventHandlers.js"></script>
 </body>
 </html>

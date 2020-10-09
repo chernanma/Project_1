@@ -88,7 +88,7 @@ function usaData(usa) {
  */
 function usaHistoricalData(history){
   
-    console.log(history);
+    // console.log(history);
 
     
     // loop and extract data
@@ -110,13 +110,14 @@ function usaHistoricalData(history){
         let date = new Date(cObj.date);
         date = date.getMonth() + 1 + "/" + date.getDate();
 
+        
         dates.unshift(date);
         dataSet['deathIncrease'].unshift(cObj.deathIncrease);
         dataSet['positiveIncrease'].unshift(cObj.positiveIncrease);
         dataSet['pending'].unshift(cObj.pending);
         dataSet['negativeIncrease'].unshift(cObj.negativeIncrease);
         dataSet['totalTestResultsIncrease'].unshift(cObj.totalTestResultsIncrease);
-        dataSet['onVentilatorCurrently'].unshift(parseInt(cObj.onVentilatorCurrently)/10000)
+        dataSet['onVentilatorCurrently'].unshift(cObj.onVentilatorCurrently)
         dataSet['hospitalizedIncrease'].unshift(cObj.hospitalizedIncrease);
         
     }
@@ -126,7 +127,7 @@ function usaHistoricalData(history){
         for(let index in keys) {
             // canvas
             var ctx = $('<canvas>').attr('id', 'chart-'+keys[index]);
-            // console.log(ctx);
+            console.log(ctx);
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -150,11 +151,13 @@ function usaHistoricalData(history){
                   }
             });
 
-            console.log(ctx);
+            // console.log(ctx);
             if(ctx.attr('id') === 'chart-positiveIncrease'){
-                console.log('inside if')
+                console.log('---------')
+                console.log(ctx);
+                console.log($('.dashboard-chart'));
                 $('.dashboard-chart').append(ctx);
-
+                console.log("---------")
             }
 
             $('.chart-container').append(ctx);
@@ -165,7 +168,6 @@ function usaHistoricalData(history){
 }
 
 /**
- * 
  * @param {*} state - state is an object that storest the covid stats for a paticular state
  *                      for example, 
  *                      state: {
