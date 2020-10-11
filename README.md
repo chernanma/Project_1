@@ -32,88 +32,53 @@ The purpose of this project is to create a web page that enables users to gather
     - COVID-19 Information and Stats API - https://covid-api.com/api/
     - COVID-19 Information and Stats API - https://api.covid19tracking.narrativa.com/api/
 
-##### Code sample - JQuery
-#
+
+##### Code sample - AJAX to get usa historical data from the API
+
 
 ```js
-* returns the province data for USA regions
- *
-function provinces() {
-    // query url
-    let queryUrl = COVID_STATS_ENDPOINTS.provinces;
-    // url object
-    let URL = {
-        url: queryUrl,
-        method: 'GET'
-    };
-
+ /** */
+function getUsaHistoricalData (){
     // ajax request
-    $.ajax(URL).then(function(response){
-        // console.log(response);
-        // stores province data
-        let usa = {
-            provinces: []
-        };
-        // console.log(response.data);
-        for(let i = 0; i < response.data.length; i++) {
-            // obj
-            let obj = response.data[i];
-            // temp obj
-            usa.provinces.push({
-                name: obj.province,
-                lat: obj.lat,
-                long: obj.long
-            });
-        } 
-
-        // view method displays provinces stats
-        // usa is an object which has list of all provinces
-        provinceData(usa);
-
-    });
-
-
-}
-
-
-
-
-```
-##### Code sample - AJAX to get data from the nyCovidStats API
-
-
-```js
-/ covid stats  variable for us-counties
-let countycity = [];
-
-function nytCovidStats() {  
-    
-
-    // get the file from new york times
-    // us of cors-anywhere server to avoid the cors block
-    let corsUrl = "https://cors-anywhere.herokuapp.com/";
-    let nytUrl = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv";
     $.ajax({
-        url: corsUrl + nytUrl,
+        url: 'https://api.covidtracking.com/v1/us/daily.json',
         method: 'GET'
-    }).then(function(response){
-        // // console.log(response.split('\n'));
-        let table = response.split('\n');
-        // store the keys in an array
-        let tH = table[0].split(',');
+    }).then(function(response) {
 
-        // loop through the rows in the table and extract the data
-        for(let i = 1; i < table.length; i++) {
-            let row = table[i].split(',');
-            // for every row save the data
+        console.log(response);
+
+        let data = [];
+        for(let i = 0; i < 14; i ++){
+            let currentData = response[i];
             let tempObj = {};
-            for(let i = 0; i < tH.length; i++) {
-                tempObj[tH[i]] = row[i];
+            cDate = currentData.date.toString();
+            // date
+            tempObj['date'] = `${cDate.substring(0,4)},${cDate.substring(4,6)},${cDate.substring(6,8)}`;
+            // death
+            tempObj['deathIncrease'] = currentData.deathIncrease;
+            // hospitalized
+            tempObj['hospitalizedIncrease'] = currentData.hospitalizedIncrease;
+            // on ventilator
+            tempObj['onVentilatorCurrently'] = currentData.onVentilatorCurrently
+            // positiveIncrease
+            tempObj['positiveIncrease'] = currentData.positiveIncrease;
+            // negativeIncrease
+            tempObj['negativeIncrease'] = currentData.negativeIncrease;
+            // recovered
+            tempObj['recovered'] = currentData.recovered;
+            // total test Results
+            tempObj['totalTestResultsIncrease'] = currentData.totalTestResultsIncrease;
+            // pending
+            tempObj['pending'] = currentData.pending;
+            
+            if(i === 0) {
+                // latest data for usa
+                // usaData(tempObj);
             }
-            window.localStorage.setItem(tempObj.county, JSON.stringify(tempObj));
+            data.push(tempObj);
         }
-        
-        
+        console.log(data);
+        usaHistoricalData(data);
     });
 }
 ```
@@ -126,11 +91,11 @@ function nytCovidStats() {
 ## Screenshots
 
 - Search Input
-![picture](./assets/Images/input.jpg)
+![picture](./Assets/Images/input.jpg)
 - Statistics Tab 
-![picture](./assets/Images/stats.jpg)
+![picture](./Assets/Images/stats.jpg)
 - Map Tab
-![picture](./assets/Images/mapup.jpg)
+![picture](./Assets/Images/mapup.jpg)
 
 [Back To The Top](#Covid-19-Test-Sites-&-stats)
 ---
