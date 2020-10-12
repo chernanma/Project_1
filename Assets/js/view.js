@@ -17,7 +17,7 @@
  *      }
  */
 function worldData(world) {
-    // // console.log(world);
+    // console.log(world);
     // console.log(county);
     let nf = new Intl.NumberFormat(); // converts number in string with comma
     $('.world-recovered').text(nf.format(world.recovered));
@@ -62,12 +62,12 @@ function countriesData(countries, today) {
  */
 function usaData(usa) {
     
-    console.log(usa);
+    // console.log(usa);
     let nf = new Intl.NumberFormat(); // converts number in string with comma
     $('.usa-recovered').text(nf.format(usa.recovered));
 
-    console.log(typeof usa.deaths);
-    console.log();
+    // console.log(typeof usa.deaths);
+    
     let deaths = nf.format(usa.deaths);
     $('.usa-deaths').text(deaths);
     $('.usa-confirmed').text(nf.format(usa.confirmed));
@@ -127,7 +127,7 @@ function usaHistoricalData(history){
         for(let index in keys) {
             // canvas
             var ctx = $('<canvas>').attr('id', 'chart-'+keys[index]);
-            console.log(ctx);
+            // console.log(ctx);
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -153,11 +153,11 @@ function usaHistoricalData(history){
 
             // console.log(ctx);
             if(ctx.attr('id') === 'chart-positiveIncrease'){
-                console.log('---------')
-                console.log(ctx);
-                console.log($('.dashboard-chart'));
+                // console.log('---------')
+                // console.log(ctx);
+                // console.log($('.dashboard-chart'));
                 $('.dashboard-chart').append(ctx);
-                console.log("---------")
+                // console.log("---------")
             }
 
             $('.chart-container').append(ctx);
@@ -242,5 +242,16 @@ function listOfPlaces(predictions) {
         $li.text(list[i])
         $('#autopopu').append($li);
     }
+
     // console.log(list);
+
+    /**
+     * add event listener on the doucment when uses the search api
+     * When user clicks outside autocomplete, close the list and the event listener
+     */
+    $(window.document).on('click', function clearAutoComplete(){
+        console.log("Clicked Inside Doucment");
+        $('#autopopu').empty();
+        $(this).off('click', clearAutoComplete);
+    });
 }

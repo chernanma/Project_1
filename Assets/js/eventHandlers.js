@@ -3,31 +3,27 @@
  * when the user inputs characters in the search bar
  */
 $("#search").keydown(function(event) {
-    // count the number of text
+
     let $this = $(this);
     let input = $this.val();
-
-    searchAutoComplete(input);
+    let topLi  = $('#autopopu').children()[0];
+    let topAddress = $(topLi).text();
 
     let code = (event.keyCode ? event.keyCode : event.which);
-    if(code == 13) { //Enter keycode
-        
-        let topLi  = $('#autopopu').children()[0];
-        let topAddress = $(topLi).text();
-        // console.log($topLi);
-        if(topAddress) {
-            $('#search').val(topAddress);
-        }
-        $('#searchInputForm').submit();
-    }
-
-    if(code == 9) {
+    if(code == 13 && topAddress) { //Enter keycode
         event.preventDefault();
-        let topLi  = $('#autopopu').children()[0];
-        let topAddress = $(topLi).text();
         if(topAddress) {
             $('#search').val(topAddress);
         }
+        $('#search').val(topAddress);
+        submitForm();
+    } else if (code == 9) { // Enter tab
+        event.preventDefault();
+        if(topAddress) {
+            $('#search').val(topAddress);
+        } 
+    } else {
+        searchAutoComplete(input);  
     }
 
 })
@@ -38,7 +34,7 @@ $("#search").keydown(function(event) {
 $('#autopopu').on('click', function(event){
 
     // debug
-    console.log("Clicked on the auto complete list element")
+    // console.log("Clicked on the auto complete list element")
     $('#search').val($(event.target).text());
     submitForm();
 
@@ -96,12 +92,15 @@ function submitForm(){
      // debug
      console.log('Triggered Form Submit');
     
-     $('#search').val();
+     let address = $("#search").val();
+
      $('#autopopu').empty();
      $('#LiLocations').empty();
- 
-     let address = $("#search").val();
-     userInput = address;
-     findLatLong(address)
+
+     if(address) {
+        userInput = address;
+        findLatLong(address)
+     }
+     
 
 }
