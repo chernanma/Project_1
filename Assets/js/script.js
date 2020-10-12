@@ -28,6 +28,7 @@ var Lat;
 var Lon;
 var position;
 var userInput;
+
 /**
  * gets the covid stats fro world, usa, state and county
  * 
@@ -49,7 +50,7 @@ function getCovidStats (region) {
         method: 'GET'
     }).then(function(response){
 
-        console.log(response);
+        // console.log(response);
         let world = response.total;
         let usa = response.dates[today].countries.US;
         let state = usa.regions[0];
@@ -245,6 +246,9 @@ function findCountyName(coords){
                 county: countyName,
                 state: response.State.name
             });
+
+            // center maps to that location
+            centerLocationInMap(coords, 8);
         }
     });
 
@@ -254,8 +258,7 @@ function findCountyName(coords){
 function callLocationAPI(cityName,Long,Lati){
 
     // debug
-    console.log("Ajax request : Test Site Location");
-
+    // console.log("Ajax request : Test Site Location");
 
     var apiKeyLocation = COVID_LOCATION_APIKEY;
 
@@ -275,6 +278,16 @@ function callLocationAPI(cityName,Long,Lati){
         // displays the test location 
         testLocationData(response.items);
         
+        // test sites coordinates
+        let sitesArr = [];
+        for(let i = 0; i < response.items.length; i++) {
+            let tempOjb = response.items[i];
+
+            sitesArr.push(tempOjb.position);
+        }
+        // show test sites as markers in google map
+        addTestLocationMarker(sitesArr);
+
     });
 
 }
@@ -315,4 +328,3 @@ function searchAutoComplete(searchInput) {
     $('.LiCountries').attr('style', 'height: 100px; overflow: auto;');
 
 })();
-

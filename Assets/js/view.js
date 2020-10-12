@@ -243,6 +243,8 @@ function testLocationData(data){
         
         liLocations.attr('id', 'site-location');
         liLocations.attr('data-site',data[i].title);
+        liLocations.attr('data-lat', data[i].position.lat);
+        liLocations.attr('data-lng', data[i].position.lng);
         divHeaderLoc.attr('class','collapsible-header active');
         iHeaderLoc.attr('class','material-icons');
         divBodyLoc.attr('class','collapsible-body blue-grey lighten-4'); 

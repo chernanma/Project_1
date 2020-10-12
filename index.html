@@ -193,8 +193,9 @@
                 <li>
                   <div class="collapsible-header"><i class="material-icons">place</i>Map - Test Sites</div>
                   <div class="collapsible-body blue-grey darken-1 white-text center map">
-                    <iframe id="map" width="100%" height="100%" frameborder="0" style="border:0" src="" allowfullscreen>
-                    </iframe>
+                    <!-- google maps -->
+                    <div id="map">
+                    </div>
                   </div>
                 </li>
                 <li>
@@ -214,6 +215,10 @@
     </div>
   </main>
 
+  <!-- google maps lib -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <!-- gogole maps api -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ030tIKWaG6RYmMth3wqf2J8dj1RlCsY&callback=initMap&libraries=&v=weekly"defer></script>
   <!-- jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <!-- materialize js -->
@@ -222,6 +227,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
   <!-- site js - DOM manipulation -->
   <script src="./Assets/js/view.js"></script>
+  <!-- google maps api -->
+  <script src="./Assets/js/google-maps-api.js"></script>
   <!-- site js - Controller/Ajax requests -->
   <script src="./Assets/js/script.js"></script>
   <!-- site js - event handlers -->
