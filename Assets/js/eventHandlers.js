@@ -67,10 +67,6 @@ $("#LiLocations").on('click',function(event){
 
     //Setting src into Iframe in maing page to display MAP
     $('#map').attr('src',queryUrl);    
-    // if(!$('.map').hasClass('active')){
-    //     $('#maindashboard').collapsible('open', 1);       
-    // }
-    
 
 });
 

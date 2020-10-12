@@ -225,6 +225,45 @@ function countyData(county){
   
 }
 
+/**
+ *  Displays the data from the ajax request
+ * 
+ * @param {*} data - response data from the ajax request
+ */
+function testLocationData(data){
+    console.log(data);
+    for (var i = 0; i < data.length; i++){
+        // console.log(response.items[i]);     
+        
+        var liLocations = $('<li>');
+        var divHeaderLoc = $('<div>');
+        var divBodyLoc=$('<div>');
+        var iHeaderLoc =$('<i>');
+        var spanLoc=$('<span>');
+        
+        liLocations.attr('id', 'site-location');
+        liLocations.attr('data-site',data[i].title);
+        divHeaderLoc.attr('class','collapsible-header active');
+        iHeaderLoc.attr('class','material-icons');
+        divBodyLoc.attr('class','collapsible-body blue-grey lighten-4'); 
+          
+        var locShortName= data[i].title; 
+        locShortName = locShortName.replace('Covid-19 Testing Site: ','');         
+        spanLoc.text(data[i].address.label);        
+        divBodyLoc.append(spanLoc);
+                           
+        divHeaderLoc.text(locShortName);
+        iHeaderLoc.text('place'); 
+        divHeaderLoc.append(iHeaderLoc); 
+
+        liLocations.append(divHeaderLoc);
+        liLocations.append(divBodyLoc);   
+
+        $('#LiLocations').append(liLocations); 
+
+    }
+
+}
 /** 
  * @param {*} predictions - is an array, with list of all places matching 
  *                           the places api ajax request
