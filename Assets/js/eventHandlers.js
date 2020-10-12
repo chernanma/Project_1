@@ -57,16 +57,14 @@ $("#LiLocations").on('click',function(event){
 
     // console.log(event.target);
     // console.log($(event.target).parents('#site-location').attr('data-site'));
-    locationName = $(event.target).parents('#site-location').attr('data-site');
-    locName = locationName.replace('Covid-19 Testing Site: ','');
-    locName = locName.replace(/ /g, "+");
-    locName = locName.replace(/,/g,"");
-
-    // Pullin data from google maps API 
-    var queryUrl = 'https://www.google.com/maps/embed/v1/place?key='+GOOGLEAPIKEY+'&q='+locName;
-
-    //Setting src into Iframe in maing page to display MAP
-    $('#map').attr('src',queryUrl);    
+    let lat = $(event.target).parents('#site-location').attr('data-lat');
+    let lng = $(event.target).parents('#site-location').attr('data-lng');
+ 
+    // center location in map
+    centerLocationInMap({
+        lat: lat, 
+        lng: lng
+    }) ;
 
 });
 
