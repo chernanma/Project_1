@@ -271,41 +271,10 @@ function callLocationAPI(cityName,Long,Lati){
         method: "GET"        
     }).then(function(response){
 
-        for (var i = 0;i<response.items.length;i++){
-            // console.log(response.items[i]);     
-            
-            var liLocations = $('<li>');
-            var divHeaderLoc = $('<div>');
-            var divBodyLoc=$('<div>');
-            var iHeaderLoc =$('<i>');
-            var spanLoc=$('<span>');
-            
-            liLocations.attr('id', 'site-location');
-            liLocations.attr('data-site',response.items[i].title);
-            divHeaderLoc.attr('class','collapsible-header active');
-            iHeaderLoc.attr('class','material-icons');
-            divBodyLoc.attr('class','collapsible-body blue-grey lighten-4'); 
-              
-            var locShortName= response.items[i].title; 
-            locShortName = locShortName.replace('Covid-19 Testing Site: ','');         
-            spanLoc.text(response.items[i].address.label);        
-            divBodyLoc.append(spanLoc);
-                               
-            divHeaderLoc.text(locShortName);
-            iHeaderLoc.text('place'); 
-            divHeaderLoc.append(iHeaderLoc); 
-
-            liLocations.append(divHeaderLoc);
-            liLocations.append(divBodyLoc);   
-
-            $('#LiLocations').append(liLocations); 
-
-        }
-   
-        $(document).ready(function(){
-            $('.collapsible').collapsible();
-        });
-
+        // console.log(response.items);
+        // displays the test location 
+        testLocationData(response.items);
+        
     });
 
 }
