@@ -150,7 +150,7 @@ function getUsaHistoricalData (){
         method: 'GET'
     }).then(function(response) {
 
-        console.log(response);
+        // console.log(response);
 
         let data = [];
         for(let i = 0; i < 14; i ++){
@@ -182,7 +182,7 @@ function getUsaHistoricalData (){
             }
             data.push(tempObj);
         }
-        console.log(data);
+        // console.log(data);
         usaHistoricalData(data);
     });
 }
@@ -280,7 +280,6 @@ function callLocationAPI(cityName,Long,Lati){
             var iHeaderLoc =$('<i>');
             var spanLoc=$('<span>');
             
-
             liLocations.attr('id', 'site-location');
             liLocations.attr('data-site',response.items[i].title);
             divHeaderLoc.attr('class','collapsible-header active');
@@ -292,7 +291,6 @@ function callLocationAPI(cityName,Long,Lati){
             spanLoc.text(response.items[i].address.label);        
             divBodyLoc.append(spanLoc);
                                
-            
             divHeaderLoc.text(locShortName);
             iHeaderLoc.text('place'); 
             divHeaderLoc.append(iHeaderLoc); 
@@ -341,7 +339,6 @@ function searchAutoComplete(searchInput) {
 // initialize the app
 (function() {
 
-    
     casesByCountry();
     findLatLong('Baltimore city');
 
