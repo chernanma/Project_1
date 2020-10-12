@@ -50,7 +50,7 @@ function getCovidStats (region) {
         method: 'GET'
     }).then(function(response){
 
-        console.log(response);
+        // console.log(response);
         let world = response.total;
         let usa = response.dates[today].countries.US;
         let state = usa.regions[0];

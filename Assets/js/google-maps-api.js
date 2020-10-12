@@ -22,9 +22,9 @@ function initMap() {
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
     }
-    // addMarker(event.latLng);
+    addMarker(event.latLng);
     // console.log(coords);
-    // findCountyName(coords);
+    findCountyName(coords);
 
   });
   // Adds a marker at the center of the map.
@@ -37,6 +37,8 @@ function addMarker(location) {
     position: location,
     map: map,
   });
+  // add event listener to the marker
+  marker.addListener('click', displayMarkerInfo);
   markers.push(marker);
 }
 
@@ -98,3 +100,10 @@ function centerLocationInMap(coords, zoomLevel = 13) {
 
 }
 
+/**
+ * click event listener call back function
+ * displays the data in the infp window
+ */
+function displayMarkerInfo(event) {
+  console.log(this.getPosition());
+}
