@@ -68,6 +68,7 @@ function getCovidStats (region) {
         };
 
         // console.log(wData);
+        //console.log(state);
         worldData(wData);
 
         let usData = {
@@ -97,7 +98,7 @@ function getCovidStats (region) {
             new_recovered: state.today_new_recovered
         };
 
-        // console.log(sData)
+        console.log(sData)
         stateData(sData);
 
         let cData = {
@@ -118,6 +119,91 @@ function getCovidStats (region) {
     });
     
 }
+
+
+
+// Get covid stats for all US States
+
+function getCovidStatState () {
+    let stateCompleteData=[];
+    let stateCompletePositionData=[];
+    let stateDataMerge=[];
+    let specificDay = new Date();
+        let month = specificDay.getMonth()+1;
+        let day = specificDay.getDate();
+        let today = specificDay.getFullYear() + '-' +
+        (month < 10 ? '0' : '') + month + '-' +
+        (day < 10 ? '0' : '') + day;
+        
+    // https://api.covid19tracking.narrativa.com/api/2020-10-12/country/us
+    
+    let queryUrl = `https://api.covid19tracking.narrativa.com/api/${today}/country/us`;
+    // ajax request
+    $.ajax({
+        url: queryUrl,
+        method: 'GET'
+    }).then(function(response){
+         
+        console.log(response);
+        for (var i=0;i<response.dates[today].countries.US.regions.length;i++){
+            let stateData ={
+                name: response.dates[today].countries.US.regions[i].name,
+                confirmed: response.dates[today].countries.US.regions[i].today_confirmed,                
+                deaths: response.dates[today].countries.US.regions[i].today_deaths,                
+                recovered: response.dates[today].countries.US.regions[i].today_recovered
+            }
+            stateCompleteData.push(stateData);
+
+        }
+        
+        let queryUrl = 'https://covid-api.com/api/provinces/USA';
+        $.ajax({
+            url: queryUrl,
+            method: 'GET'
+        }).then(function(data){
+            for (var j=0;j<data.data.length;j++){
+                let stateDataPosition ={
+                    name: data.data[j].province,
+                    lat: data.data[j].lat,
+                    long: data.data[j].long  
+                }
+                stateCompletePositionData.push(stateDataPosition);
+            }
+            
+            console.log(stateCompletePositionData);
+            console.log(stateCompleteData.length);
+            console.log(stateCompletePositionData.length);
+            for (var k=0;k<stateCompleteData.length;k++){              
+                for (var l=0;l<stateCompletePositionData.length;l++){                  
+                    if (stateCompleteData[k].name===stateCompletePositionData[l].name){    
+                        let stateMerge ={
+                            name: stateCompleteData[k].name,
+                            confirmed: stateCompleteData[k].confirmed,                
+                            deaths: stateCompleteData[k].deaths,                
+                            recovered: stateCompleteData[k].recovered,
+                            lat: stateCompletePositionData[l].lat,
+                            long: stateCompletePositionData[l].long
+                        }
+                        stateDataMerge.push(stateMerge);
+                    }
+                }
+            }
+            console.log(stateDataMerge);
+
+            getstateData(stateDataMerge);
+
+        });
+        
+        
+        
+        
+
+   });
+    
+}
+
+getCovidStatState ();
+
 
 /**
  * finds lat and longitude of the address
@@ -247,8 +333,7 @@ function findCountyName(coords){
                 state: response.State.name
             });
 
-            // center maps to that location
-            centerLocationInMap(coords, 8);
+            // center maps to that location            
         }
     });
 
