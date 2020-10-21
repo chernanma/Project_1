@@ -1,7 +1,5 @@
 
-/**
- * when the user inputs characters in the search bar
- */
+// when the user inputs characters in the search bar
 $("#search").keydown(function(event) {
 
     let $this = $(this);
@@ -28,64 +26,77 @@ $("#search").keydown(function(event) {
 
 })
 
-/**
- * when the user clicks on the auto complete li
- */
+// when the user clicks on the auto complete li
 $('#autopopu').on('click', function(event){
 
-    // debug
-    // console.log("Clicked on the auto complete list element")
     $('#search').val($(event.target).text());
     submitForm();
-
 });
 
-/**
- * when the form is submitted
- */
+// when the form is submitted
 $('#searchInputForm').on('submit',function(event){
     event.preventDefault();
     submitForm();
 });
 
-/**
- * when the user clicks on one of the test sites li
- */
+// when the user clicks on one of the test sites li
 $("#LiLocations").on('click',function(event){
-    // debug
-    console.log("click on the test locaation list element");
 
-    // console.log(event.target);
-    // console.log($(event.target).parents('#site-location').attr('data-site'));
     let lat = $(event.target).parents('#site-location').attr('data-lat');
     let lng = $(event.target).parents('#site-location').attr('data-lng');
- 
-    // center location in map
-    centerLocationInMap({
-        lat: lat, 
+    let coords = {
+        lat: lat,
         lng: lng
-    }) ;
+    };
+
+    // center location in map
+    centerLocationInMap(coords);
 
 });
 
-/**
- * when users clicks the search icon
- */
-$('#searchIcon').on('click', function(){
+// when users clicks the search icon
+$('#searchIcon').on('click', submitForm);
 
-    // debug
-    console.log('Click on the search icon');
-    $('#searchInputForm').submit();
+// open details
+$('#open-details').on('click', ()=> {
+
+    let $icon = $('#open-close');
+    let $detailedStats = $('.detailed-stats')
+
+    if($icon.text() === "expand_less"){
+        $detailedStats.removeClass('slide-in');
+        $detailedStats.addClass('slide-out');
+        $icon.text('expand_more');
+    } else {
+        $detailedStats.removeClass('slide-out');
+        $detailedStats.addClass('slide-in');
+        $icon.text('expand_less');
+    }
+    
 });
 
-/**
- * call back function for form submit
- */
+// when someone selects the drop down list
+$('select').on('change', event => {
+    let $select = $(event.target);
+    let newValue = $select.val();
+    console.log(newValue);
+    if($select.hasClass('select-state')){
+        countyList(newValue);
+    }
+    findLatLong(newValue);
+});
+
+// resize height based on window size
+window.addEventListener('resize', () => {
+    $('#main-content-wrapper').height(
+    $(window).height() - $('nav').height()
+    );
+});
+
+// call back function for form submit
 function submitForm(){ 
 
-     // debug
-     console.log('Triggered Form Submit');
-    
+     
      let address = $("#search").val();
 
      $('#autopopu').empty();
