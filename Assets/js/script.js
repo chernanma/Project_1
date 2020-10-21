@@ -6,11 +6,7 @@ var usData;
 // stores state data
 var sData;
 
-/**
- * gets the covid stats fro world, usa, state and county
- * 
- * @param {*} region - region/ county name
- */
+// get Covid-19 data for the region/county name
 function getCovidStats (region) {
 
     let today = dateToday();
@@ -71,8 +67,8 @@ function getCovidStats (region) {
                 recovered: state.today_recovered,
                 new_recovered: state.today_new_recovered
             };   
-            // console.log(sData)
-            stateData(sData);   
+
+            stateData(sData);
         }
         
         let cData = {
@@ -93,6 +89,74 @@ function getCovidStats (region) {
     
 }
 
+// get covid Stats for all USA states
+function getCovidStatState () {
+
+    let stateCompleteData=[];
+    let stateCompletePositionData=[];
+    let stateDataMerge=[];
+
+    let today = dateToday();
+        
+    // https://api.covid19tracking.narrativa.com/api/2020-10-12/country/us
+    
+    let queryUrl = `https://api.covid19tracking.narrativa.com/api/${today}/country/us`;
+    // ajax request
+    $.ajax({
+        url: queryUrl,
+        method: 'GET'
+    }).then(function(response){
+        
+        let regions = response.dates[today].countries.US.regions; 
+        for (var i = 0, l = regions.length; i < l; i++) {
+            let stateData = {
+                name: regions[i].name,
+                confirmed: regions[i].today_confirmed,                
+                deaths: regions[i].today_deaths,                
+                recovered: regions[i].today_recovered,
+            }
+
+            stateCompleteData.push(stateData);
+
+        }
+        
+        let queryUrl = 'https://covid-api.com/api/provinces/USA';
+        $.ajax({
+            url: queryUrl,
+            method: 'GET'
+        }).then(function(data){
+            for (var j=0;j<data.data.length;j++){
+                let stateDataPosition ={
+                    name: data.data[j].province,
+                    lat: data.data[j].lat,
+                    long: data.data[j].long  
+                }
+                stateCompletePositionData.push(stateDataPosition);
+            }
+            
+            for (var k=0;k<stateCompleteData.length;k++){              
+                for (var l=0;l<stateCompletePositionData.length;l++){                  
+                    if (stateCompleteData[k].name===stateCompletePositionData[l].name){    
+                        let stateMerge = {
+                            name: stateCompleteData[k].name,
+                            confirmed: stateCompleteData[k].confirmed,                
+                            deaths: stateCompleteData[k].deaths,                
+                            recovered: stateCompleteData[k].recovered,
+                            lat: stateCompletePositionData[l].lat,
+                            long: stateCompletePositionData[l].long
+                        }
+                        stateDataMerge.push(stateMerge);
+                    }
+                }
+            }
+            
+            createCirclesForStates(stateDataMerge);
+        });
+        
+   });
+    
+}
+
 /**
  * finds lat and longitude of the address
  * @param {} address - complete address forward from the places api google 
@@ -110,19 +174,18 @@ function findLatLong (address) {
         method: 'GET'
     };
 
-
     // ajax request
     $.ajax(URL).then(function(response){
-        // console.log(response)
+        
         let coords = response.results[0].locations[0].latLng;
-        // find test sites
-        callLocationAPI(coords);
-        // find county name
-        findCountyName(coords);
+        callLocationAPI(coords); // find test sites
+        findCountyName(coords); // find county name
+
     });
+
 }
 
-/** */
+// get historical data for USA
 function getUsaHistoricalData (){
     // ajax request
     $.ajax({
@@ -158,39 +221,29 @@ function getUsaHistoricalData (){
 
             data.push(tempObj);
         }
-        // console.log(data);
+
         usaHistoricalData(data);
     });
 }
 
-/** 
-*  NARRATIVA - COVID-19 TRACKING PROJECT
-*  Function to Pull data from Narrative API for Total cases by country 
-*  and generate a collapsable list
-*/
+// get covid stats for all countries
 function casesByCountry (){
 
-    let specificDay = new Date();
-    let month = specificDay.getMonth()+1;
-    let day = specificDay.getDate();
-    let today = specificDay.getFullYear() + '-' +
-        (month < 10 ? '0' : '') + month + '-' +
-        (day < 10 ? '0' : '') + day;
-
+    let today = dateToday();
     let endPoint = 'https://api.covid19tracking.narrativa.com/api/' 
-    let queryCountriesUrl = endPoint + today;      
-    // making request to pull all covid data by countries
-    $.ajax({
+    let queryCountriesUrl = endPoint + today;     
+    let URL = {
         url: queryCountriesUrl,
         method: "GET"        
-    }).then(function(response){
+    } 
+
+    // making request to pull all Covid data by countries
+    $.ajax(URL).then(function(response){
         countriesData(response.dates[today].countries); 
     });
 }
 
-/**
- *  finds county name
- */
+// find county name based on coordinates
 function findCountyName(coords){
 
     let queryUrl = `https://geo.fcc.gov/api/census/block/find?latitude=${coords.lat}&longitude=${coords.lng}&format=json`;
@@ -199,19 +252,16 @@ function findCountyName(coords){
         url: queryUrl,
         method: 'GET'
     }).then(function(response){
-        // console.log(response.County);
+
         let countyName = response.County.name;
         if(countyName) {
-            // console.log(response);
 
-            // gets covid stats for usa, state and county based on the countyname
+            // gets covid stats for usa, state and county based on the county name
             getCovidStats({
                 county: countyName,
                 state: response.State.name
             });
 
-            // center maps to that location
-            centerLocationInMap(coords, 8);
         }
     });
 
@@ -236,14 +286,21 @@ function callLocationAPI(coords){
 
         // display test location data
         testLocationData(response.items);
-
+        
         // test sites coordinates
         let sitesArr = [];
         for(let i = 0; i < response.items.length; i++) {
-            let tempOjb = response.items[i];
+            let location = response.items[i];
+            let address = location.address;
+            let tempObj = {
+                position: location.position,
+                title: location.title,
+                address: [address.houseNumber, address.street, address.city, address.stateCode, address.countryCode, address.postalCode]
+            };
 
-            sitesArr.push(tempOjb.position);
+            sitesArr.push(tempObj);
         }
+
         // show test sites as markers in google map
         addTestLocationMarker(sitesArr);
 
@@ -251,9 +308,7 @@ function callLocationAPI(coords){
 
 }
 
-/**
- * @param {*} searchInput - string, ajax request to get the list of possible address matching the string
- */
+// ajax request to get the list of possible address matching the string
 function searchAutoComplete(searchInput) {
 
     // google places api and endpoint
@@ -281,19 +336,20 @@ function searchAutoComplete(searchInput) {
     $('.date').text(dateToday());
 
     // size the height of the main content wrapper to take the remaining height
-    $('#main-content-wrapper').height(
-        $(window).height() - $('nav').height()
-    );
-    // hide autopupu - ui glitching solution
+    $('#main-content-wrapper').height( $(window).height() - $('nav').height() );
+
+    // hide auto pupo div - ui glitching solution
     $('#autopopu').hide();
     
     stateList();
     countyList($('.select-state').val());
+    getCovidStatState ();
     casesByCountry();
     getUsaHistoricalData();
-    findLatLong('Baltimore');
+    findLatLong('baltimore');
 
     // size of the dashboard
     $('.LiCountries').attr('style', 'height: 100px; overflow: auto;');
 
 })();
+

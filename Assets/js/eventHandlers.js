@@ -42,6 +42,8 @@ $('#searchInputForm').on('submit',function(event){
 // when the user clicks on one of the test sites li
 $("#LiLocations").on('click',function(event){
 
+    console.log("Clicked in LiLocations");
+
     let lat = $(event.target).parents('#site-location').attr('data-lat');
     let lng = $(event.target).parents('#site-location').attr('data-lng');
     let coords = {
@@ -49,8 +51,9 @@ $("#LiLocations").on('click',function(event){
         lng: lng
     };
 
+    console.log(coords);
     // center location in map
-    centerLocationInMap(coords);
+    centerLocationInMap(coords, 10);
 
 });
 

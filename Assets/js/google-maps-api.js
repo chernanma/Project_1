@@ -5,15 +5,15 @@
 let map;
 let markers = [];
 let circles = [];
+// coordinates for USA
+const usa = { 
+  lat: 37.0902, 
+  lng: -95.7129 
+};
 
 // initialize the map
 function initMap() {
 
-  // coordinates for USA
-  const usa = { 
-    lat: 37.0902, 
-    lng: -95.7129 
-  };
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 4,
     center: usa,
@@ -30,13 +30,31 @@ function initMap() {
 
 // Adds a marker to the map and push to the array.
 function addMarker(location) {
+
+  let coords = location.position;
+  const position = new google.maps.LatLng(coords.lat,coords.lng);
   const marker = new google.maps.Marker({
-    position: location,
+    position: position,
     map: map,
+    title: location.title
   });
-  // add event listener to the marker
-  marker.addListener('click', displayMarkerInfo);
-  markers.push(marker);
+
+  const contentString = `
+    <ul class="collection info-window">
+        <li class="collection-item">${location.title}</li>
+        <li class="collection-item">Address: ${location.address.join(", ")}</li>
+        <li class="collection-item"><a href="https://www.google.com/maps/place/${location.address.join("+")}/@${coords.lat},${coords.lng}" target="_blank">Open In Google</a></li>
+    </ul>
+  `;
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+  });
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+
+  markers.push([marker, infowindow]);
 }
 
 // Sets the map on all markers in the array.
@@ -66,12 +84,16 @@ function deleteMarkers() {
 
 function addEventListenersToMap() {
 
+
   // when user zooms remove circle based on zoom level
   map.addListener("zoom_changed", () => {
     if (map.getZoom() > 7){
       circles.forEach(circle => circle.setOptions({fillOpacity:0, strokeOpacity:0}));
+      showMarkers();
+      markers.forEach(marker => google.maps.event.trigger(marker, 'click'))
     } else{
       circles.forEach(circle => circle.setOptions({fillOpacity: 0.35, strokeOpacity:0.3}));
+      clearMarkers();
     }
   });
 
@@ -85,44 +107,26 @@ function addEventListenersToMap() {
     findCountyName(coords);
   });
 
-
 }
 
 /** helper functions */
 
-/**
- * given a list of test sites, adds marker to the google maps
- * 
- * @param {*} location - array , list of test sites cordinates
- *      [ 
- *          { lat: 0129301, lng: 151231 }, 
- *          {} , 
- *          {} 
- *      ]
- */
-function addTestLocationMarker(locations) {
 
+// given a list of test sites, adds marker to the google maps
+function addTestLocationMarker(locations) {
     for(let i = 0; i < locations.length; i++) {
-        let coords = locations[i];
-        let myLatlng = new google.maps.LatLng(coords.lat,coords.lng);
-        addMarker(myLatlng)
-     
+        addMarker(locations[i]); 
     }
 }
 
 // takes coordinates and center the map to that location with zoom level
 function centerLocationInMap(coords, zoomLevel = 4) {
-    // map.panTo(new google.maps.LatLng(coords.lat, coords.lng));
+    map.panTo(new google.maps.LatLng(coords.lat, coords.lng));
     map.setZoom(zoomLevel);
 }
 
-// click event listener call back function displays the data in the infp window
-function displayMarkerInfo(event) {
-  console.log(this.getPosition());
-}
-
 // Getting State's Data (Stats and position) and generating Red circles on map. 
-function createCirlesForStates(stateMapData){
+function createCirclesForStates(stateMapData){
   
   let stateMap = stateMapData;   
   for (let state in stateMap) {
@@ -134,14 +138,43 @@ function createCirlesForStates(stateMapData){
     const stateCircle = new google.maps.Circle({
         strokeColor: "#FF0000",
         strokeOpacity: 0.8,
-        strokeWeight: 2,
+        strokeWeight: 1,
         fillColor: "#FF0000",
         fillOpacity: 0.35,
         map,
         center: centerState,
         radius: Math.sqrt(stateMap[state].confirmed)*200,
       });
-     circles.push(stateCircle);
+
+      // create info window
+      const contentString = `
+      <ul class="collection with-header">
+          <li class="collection-header heading center">${stateMap[state].name}</li>
+          <li class="collection-item"> Confirmed : ${stateMap[state].confirmed}</li>
+          <li class="collection-item">Deaths: ${stateMap[state].deaths}</li>
+          <li class="collection-item">Recovered: ${stateMap[state].recovered}</li>
+      </ul>
+  
+        `;
+      const infoWindow = new google.maps.InfoWindow({
+          content: contentString
+      })
+
+      // add event listener to the circle, displays info window
+      google.maps.event.addListener(stateCircle, 'mouseover', function(){
+
+          if(map.getZoom() < 8){
+            infoWindow.setPosition(stateCircle.getCenter());
+            infoWindow.open(map);
+          }
+      });
+      
+      // add event listener to the circle, displays info window
+      google.maps.event.addListener(stateCircle, 'mouseout', function(){
+          infoWindow.close();
+      });
+
+      circles.push(stateCircle);
   }
 
 }
