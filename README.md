@@ -4,7 +4,7 @@ This Covid tracker application delivers the current covid19 updates and statisti
 
 [Click here to go to Covid-19 Stats Site](https://chernanma.github.io/Project_1/)
 
-![picture](./Assets/Images/webpage.jpg)
+![picture](./Assets/Images/webpage.png)
 
 ### Table of Contents
 - [Description](#description)
