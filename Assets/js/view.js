@@ -1,5 +1,8 @@
+
+// converts number in string with comma
+const nf = new Intl.NumberFormat();
+
 /**
- * 
  * @param {*} world - is an object which stores all the covid information for worl wide cases
  *  for example, 
  *  world : {
@@ -17,31 +20,63 @@
  *      }
  */
 function worldData(world) {
+
     // console.log(world);
-    // console.log(county);
-    let nf = new Intl.NumberFormat(); // converts number in string with comma
+     
     $('.world-recovered').text(nf.format(world.recovered));
+    $('.world-new-recovered').text(nf.format(world.new_recovered));
+
     $('.world-deaths').text(nf.format(world.deaths));
+    $('.world-new-deaths').text(nf.format(world.new_death));
+    
     $('.world-confirmed').text(nf.format(world.confirmed));
+    $('.world-new-confirmed').text(nf.format(world.new_confirmed));
 }
 
 /**
- * 
  * @param {*} country - is an object returned from the ajax request 
  */
-function countriesData(countries, today) {
-    
+function countriesData(countries) {
+
     for(let i in countries){
 
-        let liCountries = $('<li class=" truncate clearfix">');   
+        let countryId = countries[i].id;
+        let formattedCountryId = "";
+        for(let char of countryId) {
+            if(char === "(" || char === ")" || char === "," || char === " " || char === "-") {
+                char = "_";
+            } 
+
+            formattedCountryId += char;
+        }
+
+        countryId = formattedCountryId
+        
+        if(countryId === "taiwan*") {
+            isoCode = "tw";
+        } else {
+            isoCode = COUNTRY_ISO[countryId].toLowerCase();
+        }
+
+        let liCountries = $('<li class="collection-item truncate clearfix">');  
+        
         let spanCountry = $('<span class="left text-flow truncate">'); 
         let spanValue = $('<span class="right red-text text-darken-3">')
 
         spanCountry.text(countries[i].name);
-        spanValue.text(countries[i].today_confirmed)
+
+        spanValue.text(nf.format(countries[i].today_confirmed));
+
+        // iso code is available, there is a png icon
+        if(isoCode) {
+            let spanIcon = $('<span class="left">'); 
+            let icon = $('<img class="flag-icons">').attr('src', `./Assets/Images/flag-icons/${isoCode}.png`);
+            spanIcon.append(icon);
+            liCountries.append(spanIcon);
+        }
 
         liCountries.append(spanCountry);
-        liCountries.append(spanValue);              
+        liCountries.append(spanValue);
         $('#LiCountries').append(liCountries);
 
     }; 
@@ -62,15 +97,15 @@ function countriesData(countries, today) {
  */
 function usaData(usa) {
     
-    // console.log(usa);
-    let nf = new Intl.NumberFormat(); // converts number in string with comma
-    $('.usa-recovered').text(nf.format(usa.recovered));
+    $('.usa-stats .stats-header').text(usa.name);
 
-    // console.log(typeof usa.deaths);
-    
-    let deaths = nf.format(usa.deaths);
-    $('.usa-deaths').text(deaths);
+    $('.usa-deaths').text(nf.format(usa.deaths));
     $('.usa-confirmed').text(nf.format(usa.confirmed));
+
+    let r = usa.recovered === 0? "-": nf.format(usa.recovered);
+    let nr = usa.new_recovered === 0? "-": nf.format(usa.new_recovered);
+    $('.usa-recovered').text(r);
+    $('.usa-new-recovered').text(nr);
 }
 
 /**
@@ -87,10 +122,7 @@ function usaData(usa) {
  * totalTestResultsIncrease: 110226302
  */
 function usaHistoricalData(history){
-  
-    // console.log(history);
 
-    
     // loop and extract data
     let dates = [];
     let dataSet = {
@@ -104,13 +136,12 @@ function usaHistoricalData(history){
     };
 
     for(let i = 0; i < history.length; i++) {
+
         let cObj = history[i]; // current history object
-        // console.log(Object.keys(cObj));
 
         let date = new Date(cObj.date);
         date = date.getMonth() + 1 + "/" + date.getDate();
 
-        
         dates.unshift(date);
         dataSet['deathIncrease'].unshift(cObj.deathIncrease);
         dataSet['positiveIncrease'].unshift(cObj.positiveIncrease);
@@ -122,49 +153,44 @@ function usaHistoricalData(history){
         
     }
     
-   
-        let keys = Object.keys(dataSet);
-        for(let index in keys) {
+    let keys = Object.keys(dataSet);
+    for(let index in keys) {
+
+            const chartROW = $('.chart-container');
+            const chartTABS = $('.chart-tabs');
+
+            const li = $('<li class="tab col s2">');
+            const a = $(`<a href="#tab${index}">${keys[index]}</a>`);
+            li.html(a);
+            chartTABS.append(li);
+
             // canvas
-            var ctx = $('<canvas>').attr('id', 'chart-'+keys[index]);
-            // console.log(ctx);
+            const ctx = $('<canvas>').attr('id', 'chart-' + keys[index]);
+
+            // create chart
             var myChart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: dates,
                     datasets: [{
                         label: keys[index],
                         data: dataSet[keys[index]],
-                        borderColor: 'red',
-                        borderWidth: 1
+                        border: 'red',
+                        borderSize: '1'
                     }]
-                },
-                 options : {
-                    tooltipTemplate: "<%= value %>",
-                  
-                    showTooltips: true,
-                  
-                    onAnimationComplete: function() {
-                      this.showTooltip(this.datasets[0].points, true);
-                    },
-                    tooltipEvents: []
-                  }
+                }
             });
 
-            // console.log(ctx);
-            if(ctx.attr('id') === 'chart-positiveIncrease'){
-                // console.log('---------')
-                // console.log(ctx);
-                // console.log($('.dashboard-chart'));
-                $('.dashboard-chart').append(ctx);
-                // console.log("---------")
-            }
+            const div = $(`<div id="tab${index}" class="col border rounded z-depth-1 s8 offset-s2">`);
+            div.append(ctx);
+            chartROW.append(div);
 
-            $('.chart-container').append(ctx);
-        }
-    
+            // initialize the tabs
+            $('.tabs').tabs();
+            
+       
+    }
   
-    
 }
 
 /**
@@ -192,12 +218,22 @@ function usaHistoricalData(history){
  ///Display State Stats on main page
  function stateData(state) {
    
-    // console.log(county);
-    let nf = new Intl.NumberFormat(); // converts number in string with comma
-    $('.state-name').text(state.name);
-    $('.state-recovered').text(nf.format(state.recovered));
+    $('.state-stats .stats-header').text(state.name);
+
     $('.state-deaths').text(nf.format(state.deaths));
     $('.state-confirmed').text(nf.format(state.confirmed));
+
+    let r = state.recovered === 0? "-": nf.format(state.recovered);
+    let nr = state.new_recovered === 0? "-": nf.format(state.new_recovered);
+    $('.state-recovered').text(r);
+    $('.state-new-recovered').text(nr);
+
+    // quick stats
+    // $('.positive-num').text(nf.format(state.confirmed));
+    // $('.positive-diff').text(state.new_confirmed === 0? '-': state.new_confirmed);
+
+    // $('.death-num').text(nf.format(state.deaths));
+    // $('.death-diff').text(nf.format(state.new_death));
    
 }
 
@@ -216,13 +252,26 @@ function usaHistoricalData(history){
  *                         }
  */
 function countyData(county){
-    // console.log(county);
-    let nf = new Intl.NumberFormat(); // converts number in string with comma
+
     $('.county-name').text(county.name);
-    $('.county-recovered').text(nf.format(county.recovered));
+    $('.county-stats .stats-header').text(county.name);
+
     $('.county-deaths').text(nf.format(county.deaths));
     $('.county-confirmed').text(nf.format(county.confirmed));
-  
+
+    let r = county.recovered === 0? "-": nf.format(county.recovered);
+    let nr = county.new_recovered === 0? "-": nf.format(county.new_recovered);
+    $('.county-recovered').text(r);
+    $('.county-new-recovered').text(nr);
+
+    // quick stats
+    $('.positive-num').text(nf.format(county.confirmed));
+    $('.positive-diff').text(county.new_confirmed === 0? '-': county.new_confirmed);
+
+    $('.death-num').text(nf.format(county.deaths));
+    $('.death-diff').text(nf.format(county.new_death));
+
+
 }
 
 /**
@@ -231,7 +280,9 @@ function countyData(county){
  * @param {*} data - response data from the ajax request
  */
 function testLocationData(data){
-    console.log(data);
+    const $LiLocation = $('#LiLocations');
+    $LiLocation.empty();
+    // console.log(data);
     for (var i = 0; i < data.length; i++){
         // console.log(response.items[i]);     
         
@@ -247,7 +298,7 @@ function testLocationData(data){
         liLocations.attr('data-lng', data[i].position.lng);
         divHeaderLoc.attr('class','collapsible-header active');
         iHeaderLoc.attr('class','material-icons');
-        divBodyLoc.attr('class','collapsible-body blue-grey lighten-4'); 
+        divBodyLoc.attr('class','collapsible-body blue-grey px-1 lighten-4'); 
           
         var locShortName= data[i].title; 
         locShortName = locShortName.replace('Covid-19 Testing Site: ','');         
@@ -261,11 +312,12 @@ function testLocationData(data){
         liLocations.append(divHeaderLoc);
         liLocations.append(divBodyLoc);   
 
-        $('#LiLocations').append(liLocations); 
+        $LiLocation.append(liLocations); 
 
     }
 
 }
+
 /** 
  * @param {*} predictions - is an array, with list of all places matching 
  *                           the places api ajax request
@@ -277,6 +329,7 @@ function listOfPlaces(predictions) {
         let place = predictions[item].description;
         list.push(place);
     }
+    $('#autopopu').show();
     $('#autopopu').empty();
     for(let i in list){
         var $li =$('<li class="collection-item">');
@@ -292,7 +345,34 @@ function listOfPlaces(predictions) {
      */
     $(window.document).on('click', function clearAutoComplete(){
         console.log("Clicked Inside Doucment");
+        $('#autopopu').hide();
         $('#autopopu').empty();
         $(this).off('click', clearAutoComplete);
+    });
+}
+
+// populate county list
+function countyList(state){
+    
+    state = state.split(' ').join('_');
+    let counties = states_county[state];
+
+    let $select = $('.select-county').children('optgroup');
+    $select.empty();
+    counties.map(cN=>{
+        $select.append(
+            `<option value="${cN}" >${cN}</option>`
+        );
+    })
+}
+
+// populate state list
+function stateList(){
+    const $select = $('.select-state').children('optgroup');
+    $select.empty();
+    states.map(sN=>{
+        $select.append(
+            `<option value="${sN}" >${sN}</option>`
+        );
     });
 }
