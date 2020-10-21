@@ -629,7 +629,7 @@ const states_county = {
     "Wilkinson",
     "Worth",
   ],
-  Guam: ["Guam"],
+  Guam: ["Guam county"],
   Hawaii: ["Hawaii county", "Honolulu", "Kalawao", "Kauai", "Maui"],
   Idaho: [
     "Ada",

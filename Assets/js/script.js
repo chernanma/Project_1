@@ -71,19 +71,22 @@ function getCovidStats (region) {
             stateData(sData);
         }
         
-        let cData = {
-            name: county.name,
-            date: county.date,
-            confirmed: county.today_confirmed,
-            new_confirmed: county.today_new_confirmed,
-            deaths: county.today_deaths,
-            new_death: county.today_new_deaths,
-            recovered: county.today_recovered,
-            new_recovered: county.today_new_recovered
-        };
-
-        // console.log(cData);
-        countyData(cData)
+        if(county){
+            let cData = {
+                name: county.name,
+                date: county.date,
+                confirmed: county.today_confirmed,
+                new_confirmed: county.today_new_confirmed,
+                deaths: county.today_deaths,
+                new_death: county.today_new_deaths,
+                recovered: county.today_recovered,
+                new_recovered: county.today_new_recovered
+            };
+    
+            // console.log(cData);
+            countyData(cData)
+        }
+        
         
     });
     
@@ -262,6 +265,7 @@ function findCountyName(coords){
                 state: response.State.name
             });
 
+            callLocationAPI(coords); // find test sites
         }
     });
 
@@ -286,7 +290,7 @@ function callLocationAPI(coords){
 
         // display test location data
         testLocationData(response.items);
-        
+
         // test sites coordinates
         let sitesArr = [];
         for(let i = 0; i < response.items.length; i++) {

@@ -42,7 +42,6 @@ $('#searchInputForm').on('submit',function(event){
 // when the user clicks on one of the test sites li
 $("#LiLocations").on('click',function(event){
 
-    console.log("Clicked in LiLocations");
 
     let lat = $(event.target).parents('#site-location').attr('data-lat');
     let lng = $(event.target).parents('#site-location').attr('data-lng');
@@ -51,7 +50,6 @@ $("#LiLocations").on('click',function(event){
         lng: lng
     };
 
-    console.log(coords);
     // center location in map
     centerLocationInMap(coords, 10);
 
@@ -82,7 +80,6 @@ $('#open-details').on('click', ()=> {
 $('select').on('change', event => {
     let $select = $(event.target);
     let newValue = $select.val();
-    console.log(newValue);
     if($select.hasClass('select-state')){
         countyList(newValue);
     }

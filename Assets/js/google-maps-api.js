@@ -30,7 +30,7 @@ function initMap() {
 
 // Adds a marker to the map and push to the array.
 function addMarker(location) {
-
+  
   let coords = location.position;
   const position = new google.maps.LatLng(coords.lat,coords.lng);
   const marker = new google.maps.Marker({
@@ -54,7 +54,7 @@ function addMarker(location) {
     infowindow.open(map, marker);
   });
 
-  markers.push([marker, infowindow]);
+  markers.push(marker);
 }
 
 // Sets the map on all markers in the array.
@@ -83,14 +83,11 @@ function deleteMarkers() {
 /** Google Map Event Listener */
 
 function addEventListenersToMap() {
-
-
   // when user zooms remove circle based on zoom level
   map.addListener("zoom_changed", () => {
     if (map.getZoom() > 7){
       circles.forEach(circle => circle.setOptions({fillOpacity:0, strokeOpacity:0}));
       showMarkers();
-      markers.forEach(marker => google.maps.event.trigger(marker, 'click'))
     } else{
       circles.forEach(circle => circle.setOptions({fillOpacity: 0.35, strokeOpacity:0.3}));
       clearMarkers();
@@ -103,10 +100,9 @@ function addEventListenersToMap() {
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
     }
-    // console.log(coords);
+    centerLocationInMap(coords, 9);
     findCountyName(coords);
   });
-
 }
 
 /** helper functions */
@@ -114,6 +110,7 @@ function addEventListenersToMap() {
 
 // given a list of test sites, adds marker to the google maps
 function addTestLocationMarker(locations) {
+    clearMarkers();
     for(let i = 0; i < locations.length; i++) {
         addMarker(locations[i]); 
     }

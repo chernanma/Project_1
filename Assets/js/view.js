@@ -218,6 +218,7 @@ function usaHistoricalData(history){
  ///Display State Stats on main page
  function stateData(state) {
    
+
     $('.state-stats .stats-header').text(state.name);
 
     $('.state-deaths').text(nf.format(state.deaths));
