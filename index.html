@@ -18,206 +18,316 @@
 
 </head>
 <body>
-  <!-- header -->
-  <nav>
-    <div class="cyan nav-wrapper">
-      <a href="#" class="brand-logo center"><h5>Covid-19 Test Site & Stats</h5></a>
-    </div>
-  </nav>
-  <!-- created container -->
-  <main class="">
-    <div class='row'>
-      <!-- search bar and test sties -->
-      <div class='col s12 m3'>
-        <!-- row -->
-        <div class="row">
-            <!-- search container -->
-            <div class="col s12">
-              <!-- search input -->
-              <div class="input-field">
-                  <form action="#" id="searchInputForm"></form>
-                    <input id="search" type="text" class="validate" autocomplete="off">
-                    <label for="search">Enter City or State</label>
-                    <i class="material-icons prefix waves-effect waves-light" id="searchIcon">search</i>
-                  </form>
-                    <ul id="autopopu" class="collection z-depth-3">
-                    </ul>
-              </div>
-              <!-- Test Sites , collapsible -->
-              <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header"><i class="material-icons">location_on</i>Test Location</div>
-                  <div class="collapsible-body">
-                    <ul class="collapsible table-of-contents " id="LiLocations" data-collapsible="accordion">
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
+
+    <!-- nav -->
+    <nav>
+        <div class="nav-wrapper truncate">
+          <a href="#" class="brand-logo center"> Covid-19 Test Sites & Stats</a>
         </div>
-      </div>
-      <!-- accordian, stats and maps -->
-      <div class='col s12 m9'>
-        <!-- row -->
-          <div class="row">
-            <div class="col s12 m12">
-              <ul class="collapsible " id='maindashboard'>
-                <li>
-                  <div class="collapsible-header active"><i class="material-icons">trending_up</i>Covid DashBoard</div>
-                  <div class="collapsible-body darken-1 white-text center covid-dashboard">
-                    <!-- row -->
-                    <div class="row pt-1">
-                        <!-- col global -->
-                        <!-- country stats -->
-                        <div class="col s12 m3">
-                          <!-- total cases per country -->
-                          <ul class="collapsible active">
-                            <li class='active'>
-                              <div class="collapsible-header black-text active">
-                                <i class="material-icons ">format_list_bulleted</i>Country
-                              </div>
-                              <div class="collapsible-body active">
+    </nav>
+
+    <!-- main content -->
+    <main>
+        <!-- wrapper -->
+        <div id="main-content-wrapper">
+
+            <!-- row -->
+            <div class="row content-row">
+
+                <!-- col, side nav -->
+                <div class="col s12 m3 side-bar">
+                    <h5 class='date p-1 center-align'></h5>
+                    <!-- collapsible -->
+                    <ul class="collapsible" data-collapsible="expandable">
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">trending_up</i>Country</div>
+                            <div class="collapsible-body">
                                 <!-- list of countries -->
-                                <ul id="LiCountries" >
+                                <ul id="LiCountries" class="collection ">
+                                    
                                 </ul>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="collapsible-header active"><i class="material-icons">location_on</i>Test Location</div>
+                            <div class="collapsible-body">
+                                <!-- Test Locations -->
+                                <ul class="collapsible table-of-contents" id="LiLocations" data-collapsible="accordion">
+                                </ul>
+                            </div>
+                          </li>
+                          <li>
+                    </ul>
+                </div>
+               
+                <!-- col, map and stats -->
+                <div class="col s12 m9 map-stats-container">
+                    <!-- row -->
+                    <div class="row">
+
+                        <!-- col, map-header -->
+                        <div class="col s12 m12 map-header flex white">
+                           <ul>
+                               <!-- country -->
+                               <li class="f1"> 
+                                   <span>
+                                       <img src="./Assets/Images/flag-icons/us.png" class="flag-icon" alt="US FLAG Icon">
+                                    </span>
+                               </li>
+                               <!-- state -->
+                               <li class="f2">
+                                    <select class="select-state border browser-default">
+                                      <optgroup>
+                                        <option value="">State</option>
+                                      </optgroup>
+                                    </select>
+                               </li>
+
+                               <!-- County -->
+                               <li class="f3">
+                                   <select class="select-county border browser-default">
+                                        <optgroup>
+                                          <option>County</option>
+                                        </optgroup>
+                                    </select>
+                                </li>
+
+                           </ul>
+                        </div>
+
+                        <!-- col, map -->
+                        <div id="map"></div>
+
+                        <!-- col, quick stats -->
+                        <div class="col s1 m2 quick-stats">
+                            <!-- row -->
+                            <div class="row">
+                                <!-- col, county name -->
+                                <div class="col s12 m12">
+                                  <span class="qs-info">
+                                    <sup>COUNTY:</sup>
+                                    <span class="county-name"></span>
+                                  </span>
+                                </div>
+
+                                <!-- col, card Positive-->
+                                <div class="col s12 m12 center">
+                                  <div class="card-panel z-depth-2 border positive-card">
+                                    <!-- header -->
+                                    <h5 class="positive-header">Positive</h5>
+                                    <!-- positive -->
+                                    <span class="positive-num"></span>
+                                    <!-- diff -->
+                                    <sub class="positive-diff"></sub>
+                                  </div>
+                                </div>
+
+                                <!-- col, card Deaths-->
+                                <div class="col s12 m12 center">
+                                    <div class="card-panel z-depth-3 border death-card">
+                                      <!-- header -->
+                                      <h5 class="death-header">Deaths</h5>
+                                      <!-- positive -->
+                                      <span class="death-num"></span>
+                                      <!-- diff -->
+                                      <sub class="death-diff"></sub>
+                                    </div>
+                                </div>
                               </div>
-                            </li>
-                          </ul>
                         </div>
-                        <!-- col dashboard -->
-                        <div class="col s12 m6">
-                          <div class="row">
-                            <!-- county -->
-                            <ul class="col s12 m12 rounded collection z-depth-3">
-                              <!-- heading -->
-                              <li class="collection-item">
-                                <h3 class="county-name"></h3>
-                              </li>
-                              <!-- active -->
-                              <li class="collection-item clearfix">
-                                <span class="left">Confirmed</span>
-                                <span class="county-confirmed right"></span>
-                              </li>
-                              <!-- Recovered -->
-                              <li class="collection-item clearfix">
-                                <span class="left">Recovered</span>
-                                <span class="county-recovered right"></span>
-                              </li>
-                              <!-- Deaths -->
-                              <li class="collection-item clearfix">
-                                <span class="left">Deaths</span>
-                                <span class="county-deaths right"></span>
-                              </li>
-                            </ul>
-                            <div class="col s12 m12 dashboard-chart">
-                            </div>
-                          </div>
+
+                        <!-- col, detailed-stats -->
+                        <div class="col s12 m10 hoverable offset-m1 border center slide-in detailed-stats">
                           
-                           
-                        </div>
-                        <!-- col usa, state, county stats -->
-                        <div class="col s12 m3">
-                          <!-- row -->
-                          <div class="row">
-                            <!-- total cases worldwide -->
-                            <div class="col s12 m12 mt-1">
-                              <ul class="collection rounded z-depth-3">
-                                <!-- Heading -->
-                                <li class="collection-item">World</li>
-                                <!-- confirmed -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">confirmed</span>
-                                  <span class="world-confirmed right"></span>
-                                </li>
-                                <!-- Deaths -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">Deaths</span>
-                                  <span class="world-deaths right"></span>
-                                </li>
-                                <!-- Recovered -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">Recovered</span>
-                                  <span class="world-recovered right"></span>
-                                </li>
-                              </ul>
-                            </div>
-                            <!-- usa -->
-                            <div class="col s12 m12 mt-1">
-                              <ul class="rounded collection z-depth-3">
-                                <!-- heading -->
-                                <li class="collection-item">USA</li>
-                                <!-- active -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">confirmed</span>
-                                  <span class="usa-confirmed right"></span>
-                                </li>
-                                <!-- Recovered -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">Recovered</span>
-                                  <span class="usa-recovered right"></span>
-                                </li>
-                                <!-- Deaths -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">Deaths</span>
-                                  <span class="usa-deaths right"></span>
-                                </li>
-                              </ul>
-                            </div>
-                            <!-- state -->
-                            <div class="col s12 m12 mt-1">
-                              <ul class="rounded collection z-depth-3">
-                                <!-- heading -->
-                                <li class="collection-item state-name" >State</li>
-                                <!-- active -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">confirmed</span>
-                                  <span class="state-confirmed right"></span>
-                                </li>
-                                <!-- Recovered -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">Recovered</span>
-                                  <span class="state-recovered right"></span>
-                                </li>
-                                <!-- Deaths -->
-                                <li class="collection-item clearfix">
-                                  <span class="left">Deaths</span>
-                                  <span class="state-deaths right"></span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
+                              <!-- row -->
+                              <div class="row">
+
+                                  <!-- col -->
+                                  <div class="open-details-container">
+                                    <a id="open-details" class="btn-floating btn-flat right waves-effect border waves-light ">
+                                      <i id="open-close" class="material-icons black-text">expand_less</i>
+                                    </a>
+                                  </div>
+
+                                  <!-- col, search bar, Input -->
+                                  <div class="input-field center-algin col s10 s10 offset-s1 m6 offset-m3">
+                                    
+                                    <form action="#" id="searchInputForm"></form>
+                                      <input id="search" type="text" class="validate" autocomplete="off">
+                                      <label for="search">Enter location</label>
+                                      <i class="material-icons prefix waves-effect waves-light" id="searchIcon">search</i>
+                                    </form>
+                                      <ul id="autopopu" class="collection z-depth-3">
+                                      </ul>
+                                  </div>
+
+                                  <!-- col, county stats -->
+                                  <div class="col offset-m1 m10 border rounded z-depth-1 s10 offset-s1 county-stats">
+                                    <!-- row -->
+                                    <div class="row ">
+                                          <!-- stats -->
+                                          <div class="col s12 m12">
+                                              <sup>County: </sup>
+                                              <span class="stats-header"></span>
+                                              <table class="border">
+                                                <tbody>
+                                                  <tr>
+                                                    <td>
+                                                        <span>confirmed</span>
+                                                        <span class="county-confirmed"></span>
+                                                        <span class="county-new-confirmed"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span>recovered</span>
+                                                        <span class="county-recovered"></span>
+                                                        <span class="county-new-recovered"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span>deaths</span>
+                                                        <span class="county-deaths"></span>
+                                                        <span class="county-new-deaths"></span>
+                                                    </td>
+                                                  </tr>
+                                                  
+                                                </tbody>
+                                              </table>
+                                          </div> 
+                                    </div>
+                                  </div>
+
+                                   <!-- col, state  -->
+                                  <div class="col offset-m1 m10 border rounded s10 offset-s1 z-depth-1 state-stats">
+                                    <!-- row -->
+                                    <div class="row ">
+                                          <!-- stats -->
+                                          <div class="col s12 m12">
+                                              <sup>State: </sup>
+                                              <span class="stats-header"></span>
+                                              <table class="">
+                                                <tbody>
+                                                  <tr>
+                                                    <td>
+                                                        <span>confirmed</span>
+                                                        <span class="state-confirmed"></span>
+                                                        <span class="state-new-confirmed"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span>recovered</span>
+                                                        <span class="state-recovered"></span>
+                                                        <span class="state-new-recovered"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span>deaths</span>
+                                                        <span class="state-deaths"></span>
+                                                        <span class="state-new-deaths"></span>
+                                                    </td>
+                                                  </tr>
+                                                  
+                                                </tbody>
+                                              </table>
+                                          </div> 
+                                    </div>
+                                  </div>
+
+                                  <!-- col, USA  -->
+                                  <div class="col offset-m1 m10 border rounded s10 offset-s1 z-depth-1 usa-stats">
+                                        <!-- row -->
+                                        <div class="row">
+                                              <!-- stats -->
+                                              <div class="col s12 m12">
+                                                  <sup>county: </sup>
+                                                  <span class="stats-header"></span>
+                                                  <table class="">
+                                                    <tbody>
+                                                      <tr>
+                                                        <td>
+                                                            <span>confirmed</span>
+                                                            <span class="usa-confirmed"></span>
+                                                            <span class="usa-new-confirmed"></span>
+                                                        </td>
+                                                        <td>
+                                                            <span>recovered</span>
+                                                            <span class="usa-recovered"></span>
+                                                            <span class="usa-new-recovered"></span>
+                                                        </td>
+                                                        <td>
+                                                            <span>deaths</span>
+                                                            <span class="usa-deaths"></span>
+                                                            <span class="usa-new-deaths"></span>
+                                                        </td>
+                                                      </tr>
+                                                      
+                                                    </tbody>
+                                                  </table>
+                                              </div> 
+                                        </div>
+                                  </div>
+
+                                  <!-- col, usa historical data -->
+                                  <div class="col historical-data s10 offset-s1 m10 offset-m1 m10 border rounded z-depth-1 ">
+                                      <!-- row -->
+                                      <div class="row chart-container">
+                                        <p>USA 14-Day historical Data</p>
+                                        <div class="col s10 offset-s1">
+                                          <!-- tabs -->
+                                          <ul class="tabs border chart-tabs">
+                                          
+                                          </ul>
+                                        
+                                        </div>
+                                        <!-- charts  -->
+                                        
+                                      </div>
+                                  </div>
+
+                                  <!-- col, world stats -->
+                                  <div class="col offset-m1 m10 border s10 offset-s1 rounded z-depth-1 world-stats">
+                                      <!-- row -->
+                                      <div class="row">
+                                            <!-- stats -->
+                                            <div class="col s12 m12">
+                                                <span class="stats-header">World Stats</span>
+                                                <table class="">
+                                                  <tbody>
+                                                    <tr>
+                                                      <td>
+                                                          <span>confirmed</span>
+                                                          <span class="world-confirmed"></span>
+                                                          <span class="world-new-confirmed"></span>
+                                                      </td>
+                                                      <td>
+                                                          <span>recovered</span>
+                                                          <span class="world-recovered"></span>
+                                                          <span class="world-new-recovered"></span>
+                                                      </td>
+                                                      <td>
+                                                          <span>deaths</span>
+                                                          <span class="world-deaths"></span>
+                                                          <span class="world-new-deaths"></span>
+                                                      </td>
+                                                    </tr>
+                                                    
+                                                  </tbody>
+                                                </table>
+                                            </div> 
+                                      </div>
+                                  </div>
+
+                              </div>
+
                         </div>
                     </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="collapsible-header"><i class="material-icons">place</i>Map - Test Sites</div>
-                  <div class="collapsible-body blue-grey darken-1 white-text center map">
-                    <!-- google maps -->
-                    <div id="map">
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="collapsible-header"><i class="material-icons">trending_up</i>Statistics</div>
-                  <div class="collapsible-body blue-grey darken-1 white-text">
-                      <!-- chart container -->
-                      <div class="col m6 chart-container center">
-                           <!-- canvas chart -->
-                           <canvas id="myChart"></canvas>
-                      </div>
-                   </div>
-                 </li>
-              </ul>
-            </div>
-          </div>
-      </div>
-    </div>
-  </main>
+                </div>
+
+            </div> 
+
+        </div>
+        
+    </main>
 
   <!-- google maps lib -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <!-- gogole maps api -->
+  <!-- google maps api -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ030tIKWaG6RYmMth3wqf2J8dj1RlCsY&callback=initMap&libraries=&v=weekly"defer></script>
   <!-- jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -225,6 +335,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <!-- chartjs.org -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+  
+  <!-- site js -helper.js -->
+  <script src="./Assets/js/helper.js"></script>
+  <!-- site js - states and county list -->
+  <script src="./Assets/js/states-county-list.js"></script>
+  <!-- site js - country iso list -->
+  <script src="./Assets/js/country-iso.js"></script>
   <!-- site js - DOM manipulation -->
   <script src="./Assets/js/view.js"></script>
   <!-- google maps api -->
@@ -233,5 +350,6 @@
   <script src="./Assets/js/script.js"></script>
   <!-- site js - event handlers -->
   <script src="./Assets/js/eventHandlers.js"></script>
+
 </body>
 </html>

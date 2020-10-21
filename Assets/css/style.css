@@ -1,101 +1,281 @@
 
+body {
+  background-color: #f5f5f5;
+}
+
+nav {
+  background-color: rgb(40, 74, 105);
+}
+
+#main-content-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  overflow: auto;
+}
+
+.content-row{
+  height: inherit;
+}
+
+.side-bar {
+  height: inherit;
+  border-right: 1px rgb(206, 206, 206) solid;
+  overflow: auto;
+}
+
+.collapsible-header span {
+  display: inline-block;
+}
+
+.collapsible .collapsible-body {
+  padding: 0;
+  margin: 0;
+}
+
+#LiCountries {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.flag-icons {
+  height: 20px;
+  width: 30px;
+  border: 1px rgb(226, 226, 226) solid;
+  margin-right: .50rem;
+}
+
+.map-stats-container {
+  position: relative;
+  height: inherit;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.map-stats-container .row {
+  height: inherit;
+}
+
+#map {
+  height: 100%;
+}
+
+.map-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  height: 48px;
+}
+
+.map-header ul {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  text-align: center;
+}
+
+.map-header li {
+  line-height: 45px;
+  height: 100%;
+  display: inline-block;
+  text-align: center;
+  padding: 5px 1rem;
+}
+
+.f1 {
+  flex: 25%;
+}
+
+.f2 {
+  flex: 25%;
+}
+
+.f3 {
+  flex: 25%;
+}
+
+.f4 {
+  flex: 25%;
+}
+
+#LiLocations {
+  height: 100%;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.px-1 {
+  padding: 0 1rem 0 1rem !important;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.map_header {
+  position: absolute;
+}
+
+select {
+  height: inherit;
+}
+
+.border {
+  border: 1px rgb(224, 224, 224) solid;
+}
+
+.quick-stats {
+  position: absolute;
+  top: 5rem;
+  left: 0;
+}
+
+.card-panel {
+  opacity: .8;
+  padding: 1rem;
+  background-color:white;
+  border-radius: 0.55rem;
+  border-color: rgb(143, 143, 143);
+}
+
+.detailed-stats {
+  position: absolute;
+  bottom: 0;
+  overflow: auto;
+  background-color: white;
+  border-color: rgb(150, 150, 150);
+  border-radius: 1rem 1rem 0 0;
+}
+
+.slide-in {
+  opacity: .6;
+  height: 20%;
+  transition: height .25s ease-in-out;
+}
+
+.slide-out {
+  opacity: 1;
+  height: 80% !important;
+  transition: height .25s ease-in-out;
+}
+
+.detailed-stats:hover {
+  opacity: 1;
+  height: 45%;
+  transition: height .25s ease-in-out;
+}
+
+#autopopu .collection-item:hover {
+  background-color:#468169;
+  color: white;
+  cursor: pointer;
+}
+
+#autopopu {
+  margin-top: -1rem;
+  position: absolute;
+  font-size: 11px;
+  z-index: 99;
+}
+
+.qs-info {
+  color: black;
+  font-size: 1rem;
+  border-radius: .25rem;
+}
+
+.quick-stats span {
+  font-size: 1.5rem;
+}
+
+sup {
+  font-size: .7rem;
+}
+
+sub {
+  font-weight: bold;
+  color: red;
+  font-size: 1rem;
+}
+
+.card-panel {
+  min-width: 156px;
+  min-height: 114px;
+}
+
+.chart-tabs a {
+  color: black !important;
+  font-size: 10px !important;
+}
+
+
+.rounded {
+  border-radius: .50rem;
+}
+
+.stats-header {
+  display: inline-block;
+  padding: 1rem;
+}
+
+table {
+  border: 1px solid rgb(199, 198, 198);
+  border-radius: .50rem;
+}
+
+td span {
+  display: block;
+  text-align: center;
+}
+
+.detailed-stats .col {
+  margin-bottom: 2rem;
+}
+
+#open-details {
+  margin-top: 1rem;
+}
+
+tr {
+  display: flex;    
+}
+
+td {
+  flex: 25%;
+}
+
+.open-details-container {
+  position: fixed;
+  top: 10;
+  left: 10;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 1.15rem;
+}
 
 
 
+/* small screen */
+@media only screen and (max-width: 600px) {
 
-    body {
-        background-color: #f5f5f5;
-      }
-  
-      .map {
-        overflow: auto;
-        height: 450px;
-        width: 100%;
-      }
-  
-      .pt-1 {
-        padding-top: 1rem;
-      }
-  
-      .mt-1 {
-        margin-top: 1rem;
-      }
-  
-      .collection-item {
-        color: black;
-      }
-  
-      .covid-dashboard .collection-item {
-        padding: 0 5px 0 5px !important;
-        font-size: 14px;
-        /* background-color: #f5f5f5; */
+  td {
+      font-size: 11px;
+  }
 
-      }
+  .map-header {
+      border: 1px solid rgb(192, 192, 192);
+  }
 
-      /** map height */
-      #map {
-        height: 100%;
-      }
-  
-      #top-address-placeholder {
-        position: absolute;
-        color:rgb(194, 187, 187);
-        z-index: -99;
-        top: 0;
-        left: 0;
-      }
-  
-      #autopopu {
-        margin-top: -1rem;
-      }
-  
-      #autopopu .collection-item:hover {
-        background-color:#468169;
-        color: white;
-        cursor: pointer;
-      }
-  
-      .collapsible-body {
-        padding: 0 !important;
-      }
-  
-      .collapsible-body > span {
-        padding: 1rem !important;
-        display: inline-block;
-      }
-      
-      #LiCountries {
-        max-height: 400px;
-        overflow-x: none;
-        overflow-y: auto;
-        color: black;
-        background-color: white;
-        padding: 0 .25rem;
-      }
-  
-      #LiCountries li {
-        border-bottom: 1px solid rgb(194, 187, 187);
-        font-size: 14px;    
-      }
-  
-      .scroller {
-        width: auto;
-        height: 550px;
-        overflow-y: scroll;
-        scrollbar-color: rebeccapurple green;
-        scrollbar-width: thin;
-      }
-  
-      .prefix {
-        right: 0;
-      }
-  
-      .clearfix::after {
-        content: "";
-        clear: both;
-        display: table;
-      }
-  
-      .rounded {
-        border-radius: 2%;
-      }
+  .side-bar {
+      height: auto;
+  }
+
+  .historical-data {
+      display: none;
+  }
+
+}

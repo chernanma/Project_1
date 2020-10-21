@@ -1,317 +1,59 @@
 
-// In the following example, markers appear when the user clicks on the map.
 // The markers are stored in an array.
-// The user can then click an option to hide, show or delete the markers.
+// circlers are stored for each state, when user hovers over it, they can see stats
 
 let map;
 let markers = [];
-let circles=[];
-let statemap=[];
+let circles = [];
+// coordinates for USA
+const usa = { 
+  lat: 37.0902, 
+  lng: -95.7129 
+};
 
+// initialize the map
 function initMap() {
-  console.log(statemap);
-  // coordinates for baltimore
-  const baltimore = { lat: 39.299236, lng: -76.609383 };
-
-  const styledMapType = new google.maps.StyledMapType(    
-      [
-        {
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#f5f5f5"
-            }
-          ]
-        },
-        {
-          "elementType": "labels.icon",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "elementType": "labels.text.fill",
-          "stylers": [
-            {
-              "color": "#616161"
-            }
-          ]
-        },
-        {
-          "elementType": "labels.text.stroke",
-          "stylers": [
-            {
-              "color": "#f5f5f5"
-            }
-          ]
-        },
-        {
-          "featureType": "administrative",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "administrative.land_parcel",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "administrative.land_parcel",
-          "elementType": "labels.text.fill",
-          "stylers": [
-            {
-              "color": "#bdbdbd"
-            }
-          ]
-        },
-        {
-          "featureType": "poi",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#eeeeee"
-            }
-          ]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "labels.text",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "labels.text.fill",
-          "stylers": [
-            {
-              "color": "#757575"
-            }
-          ]
-        },
-        {
-          "featureType": "poi.park",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#e5e5e5"
-            }
-          ]
-        },
-        {
-          "featureType": "poi.park",
-          "elementType": "labels.text.fill",
-          "stylers": [
-            {
-              "color": "#9e9e9e"
-            }
-          ]
-        },
-        {
-          "featureType": "road",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#ffffff"
-            }
-          ]
-        },
-        {
-          "featureType": "road",
-          "elementType": "labels.icon",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "road.arterial",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "road.arterial",
-          "elementType": "labels.text.fill",
-          "stylers": [
-            {
-              "color": "#757575"
-            }
-          ]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#dadada"
-            }
-          ]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "labels.text.fill",
-          "stylers": [
-            {
-              "color": "#616161"
-            }
-          ]
-        },
-        {
-          "featureType": "road.local",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "road.local",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "road.local",
-          "elementType": "labels.text.fill",
-          "stylers": [
-            {
-              "color": "#9e9e9e"
-            }
-          ]
-        },
-        {
-          "featureType": "transit",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "transit.line",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#e5e5e5"
-            }
-          ]
-        },
-        {
-          "featureType": "transit.station",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#eeeeee"
-            }
-          ]
-        },
-        {
-          "featureType": "water",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#c9c9c9"
-            }
-          ]
-        },
-        {
-          "featureType": "water",
-          "elementType": "labels.text.fill",
-          "stylers": [
-            {
-              "color": "#9e9e9e"
-            }
-          ]
-        }
-      ],    
-    { name: "Styled Map" }
-  );
-
 
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 4,
-    center: baltimore,
+    center: usa,
+    mapTypeControl: true,
     mapTypeControlOptions: {
-      mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
-    },
-    
-    
-  });
-  map.mapTypes.set("styled_map", styledMapType);
-  map.setMapTypeId("styled_map");
-
-  // This event listener will call addMarker() when the map is clicked.
-  map.addListener("click", (event) => {
-
-    let coords = {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng()
+      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+      position: google.maps.ControlPosition.RIGHT_TOP,
     }
-    addMarker(event.latLng);
-    // console.log(coords);
-    findCountyName(coords);
-
   });
-  // Adds a marker at the center of the map.
-  addMarker(baltimore);
-
-  map.addListener("zoom_changed", () => {
-    if (map.getZoom()>7){
-      circles.forEach(circle => circle.setOptions({fillOpacity:0, strokeOpacity:0}));
-    }else{
-      circles.forEach(circle => circle.setOptions({fillOpacity: 0.35, strokeOpacity:0.3}));
-
-    }
-    
-    console.log("Zoom: " + map.getZoom());
-  });
-    
+  // add event listeners to map
+  addEventListenersToMap();
+  
 }
 
 // Adds a marker to the map and push to the array.
 function addMarker(location) {
+  
+  let coords = location.position;
+  const position = new google.maps.LatLng(coords.lat,coords.lng);
   const marker = new google.maps.Marker({
-    position: location,
+    position: position,
     map: map,
+    title: location.title
   });
-  // add event listener to the marker
-  marker.addListener('click', displayMarkerInfo);
+
+  const contentString = `
+    <ul class="collection info-window">
+        <li class="collection-item">${location.title}</li>
+        <li class="collection-item">Address: ${location.address.join(", ")}</li>
+        <li class="collection-item"><a href="https://www.google.com/maps/place/${location.address.join("+")}/@${coords.lat},${coords.lng}" target="_blank">Open In Google</a></li>
+    </ul>
+  `;
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+  });
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+
   markers.push(marker);
 }
 
@@ -338,71 +80,98 @@ function deleteMarkers() {
   markers = [];
 }
 
+/** Google Map Event Listener */
+
+function addEventListenersToMap() {
+  // when user zooms remove circle based on zoom level
+  map.addListener("zoom_changed", () => {
+    if (map.getZoom() > 7){
+      circles.forEach(circle => circle.setOptions({fillOpacity:0, strokeOpacity:0}));
+      showMarkers();
+    } else{
+      circles.forEach(circle => circle.setOptions({fillOpacity: 0.35, strokeOpacity:0.3}));
+      clearMarkers();
+    }
+  });
+
+  // This event listener will call addMarker() when the map is clicked.
+  map.addListener("click", (event) => {
+    let coords = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+    }
+    centerLocationInMap(coords, 9);
+    findCountyName(coords);
+  });
+}
 
 /** helper functions */
 
-/**
- * given a list of test sites, adds marker to the google maps
- * 
- * @param {*} location - array , list of test sites cordinates
- *      [ 
- *          { lat: 0129301, lng: 151231 }, 
- *          {} , 
- *          {} 
- *      ]
- */
-function addTestLocationMarker(location) {
 
-    for(let i = 0; i < location.length; i++) {
-        let coords = location[i];
-        let myLatlng = new google.maps.LatLng(coords.lat,coords.lng);
-        addMarker(myLatlng)
-     
+// given a list of test sites, adds marker to the google maps
+function addTestLocationMarker(locations) {
+    clearMarkers();
+    for(let i = 0; i < locations.length; i++) {
+        addMarker(locations[i]); 
     }
 }
 
-/**
- * takes coordinates and center the map to that location with zoom level
- * 
- * @param {*} coords 
- */
+// takes coordinates and center the map to that location with zoom level
 function centerLocationInMap(coords, zoomLevel = 4) {
-
-    // map.panTo(new google.maps.LatLng(coords.lat, coords.lng));
+    map.panTo(new google.maps.LatLng(coords.lat, coords.lng));
     map.setZoom(zoomLevel);
-
 }
-
-/**
- * click event listener call back function
- * displays the data in the infp window
- */
-function displayMarkerInfo(event) {
-  console.log(this.getPosition());
-}
-
 
 // Getting State's Data (Stats and position) and generating Red circles on map. 
-function getstateData (statemapdata){
+function createCirclesForStates(stateMapData){
   
-  statemap =statemapdata;   
-  for (let state in statemap) {
-
-    let centerstate = { lat: parseFloat(statemap[state].lat) , lng: parseFloat(statemap[state].long) };    
+  let stateMap = stateMapData;   
+  for (let state in stateMap) {
+    let centerState = { 
+      lat: parseFloat(stateMap[state].lat) , 
+      lng: parseFloat(stateMap[state].long) 
+    };    
     // Add the circle for this state to the map.
     const stateCircle = new google.maps.Circle({
-      strokeColor: "#FF0000",
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: "#FF0000",
-      fillOpacity: 0.35,
-      map,
-      center: centerstate,
-      radius: Math.sqrt(statemap[state].confirmed)*200,
-    });
-    circles.push(stateCircle);
-  }
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 1,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+        map,
+        center: centerState,
+        radius: Math.sqrt(stateMap[state].confirmed)*200,
+      });
 
-  console.log(statemap);
+      // create info window
+      const contentString = `
+      <ul class="collection with-header">
+          <li class="collection-header heading center">${stateMap[state].name}</li>
+          <li class="collection-item"> Confirmed : ${stateMap[state].confirmed}</li>
+          <li class="collection-item">Deaths: ${stateMap[state].deaths}</li>
+          <li class="collection-item">Recovered: ${stateMap[state].recovered}</li>
+      </ul>
+  
+        `;
+      const infoWindow = new google.maps.InfoWindow({
+          content: contentString
+      })
+
+      // add event listener to the circle, displays info window
+      google.maps.event.addListener(stateCircle, 'mouseover', function(){
+
+          if(map.getZoom() < 8){
+            infoWindow.setPosition(stateCircle.getCenter());
+            infoWindow.open(map);
+          }
+      });
+      
+      // add event listener to the circle, displays info window
+      google.maps.event.addListener(stateCircle, 'mouseout', function(){
+          infoWindow.close();
+      });
+
+      circles.push(stateCircle);
+  }
 
 }
