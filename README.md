@@ -93,7 +93,7 @@ function getUsaHistoricalData (){
 - Search Input
 ![picture](./Assets/Images/input.jpg)
 - Statistics Tab 
-![picture](./Assets/Images/stats.jpg)
+![picture](./Assets/Images/stats.png)
 - Map Tab
 ![picture](./Assets/Images/mapup.jpg)
 
